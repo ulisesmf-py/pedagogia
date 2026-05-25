@@ -1,0 +1,1768 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PEDAGOGIA</title>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;1,500&family=Barlow+Condensed:wght@700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
+<style>
+:root{
+  /* Pastel palette */
+  --bg:#fdf6f9;
+  --surface:#ffffff;
+  --surface2:#fce8f3;
+  --surface3:#f8d7ea;
+  --border:#f0c4df;
+  --border2:#e8a8cc;
+
+  --text:#3d2040;
+  --text2:#7a5480;
+  --text3:#b899c4;
+
+  /* Main accent: dusty rose / mauve */
+  --accent:#c2648a;
+  --accent-bg:#fce8f3;
+  --accent-text:#7a2a52;
+
+  /* Sage green (success) */
+  --green:#9b7cc4;
+  --green-bg:#f0eafa;
+  --green-text:#4a2880;
+
+  /* Coral (alerts) */
+  --red:#d96b82;
+  --red-bg:#fdeef2;
+  --red-text:#8b2040;
+
+  /* Warm amber */
+  --amber:#c4895a;
+  --amber-bg:#fdf0e6;
+  --amber-text:#7a4820;
+
+  /* Lavender */
+  --purple:#9b7cc4;
+  --purple-bg:#f0eafa;
+  --purple-text:#4a2880;
+
+  /* Sky blue accent */
+  --sky:#6aaad4;
+  --sky-bg:#e8f4fc;
+
+  --radius:18px;
+  --radius-sm:12px;
+  --radius-xs:8px;
+  --font:'Quicksand',sans-serif;
+  --font-serif:'Playfair Display',serif;
+  --shadow:0 4px 20px rgba(194,100,138,0.10);
+  --shadow-lg:0 12px 40px rgba(194,100,138,0.16);
+  --shadow-card:0 2px 16px rgba(194,100,138,0.08);
+}
+
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;
+  background-image:radial-gradient(circle at 10% 20%, rgba(194,100,138,0.06) 0%, transparent 40%),
+    radial-gradient(circle at 90% 80%, rgba(155,124,196,0.06) 0%, transparent 40%);
+}
+
+/* ══ TOPBAR ══ */
+.topbar{
+  background:linear-gradient(135deg,#c2648a 0%,#9b7cc4 100%);
+  padding:0 1.75rem;height:64px;display:flex;align-items:center;
+  justify-content:space-between;position:sticky;top:0;z-index:50;
+  box-shadow:0 4px 20px rgba(155,100,180,0.25);
+}
+.topbar-brand{display:flex;align-items:center;gap:12px;}
+.topbar-brand .logo{
+  width:38px;height:38px;background:rgba(255,255,255,0.25);
+  border-radius:12px;display:flex;align-items:center;justify-content:center;
+  color:#fff;font-size:20px;backdrop-filter:blur(4px);border:1px solid rgba(255,255,255,0.3);
+}
+.topbar-brand .title-group{display:flex;flex-direction:column;}
+.topbar-brand .main-title{font-family:'Barlow Condensed',sans-serif;font-size:20px;color:#fff;font-weight:800;letter-spacing:0.14em;line-height:1.1;text-transform:uppercase;}
+.topbar-brand .sub-title{font-size:10px;color:rgba(255,255,255,0.75);font-weight:500;letter-spacing:0.08em;text-transform:uppercase;}
+.topbar-right{display:flex;align-items:center;gap:10px;}
+.online-dot{width:8px;height:8px;border-radius:50%;background:#b8f0d8;display:inline-block;box-shadow:0 0 0 3px rgba(184,240,216,0.3);}
+.parcial-chip{background:rgba(255,255,255,0.22);color:#fff;padding:5px 14px;border-radius:20px;font-size:12px;font-weight:700;border:1px solid rgba(255,255,255,0.3);backdrop-filter:blur(4px);letter-spacing:0.04em;}
+
+.container{max-width:820px;margin:0 auto;padding:2rem 1.25rem;}
+
+/* ══ MAIN TABS ══ */
+.tabs{
+  display:flex;gap:6px;margin-bottom:1.75rem;
+  background:rgba(194,100,138,0.08);padding:5px;border-radius:22px;
+  border:1px solid var(--border);
+}
+.tab{
+  padding:9px 18px;border-radius:18px;font-size:13px;cursor:pointer;background:none;
+  border:none;font-family:var(--font);color:var(--text2);transition:all 0.2s;
+  display:flex;align-items:center;gap:6px;font-weight:600;flex:1;justify-content:center;
+}
+.tab.active{
+  background:linear-gradient(135deg,var(--accent) 0%,var(--purple) 100%);
+  color:#fff;box-shadow:0 4px 14px rgba(194,100,138,0.35);
+}
+.tab:hover:not(.active){background:rgba(194,100,138,0.1);color:var(--accent);}
+.section{display:none;}.section.active{display:block;}
+
+/* ══ CARDS ══ */
+.card{
+  background:var(--surface);border:1.5px solid var(--border);
+  border-radius:var(--radius);padding:1.375rem;margin-bottom:1rem;
+  box-shadow:var(--shadow-card);
+}
+.card-clickable{cursor:pointer;transition:all 0.2s;}
+.card-clickable:hover{
+  border-color:var(--accent);
+  box-shadow:0 6px 24px rgba(194,100,138,0.16);
+  transform:translateY(-2px);
+}
+
+/* ══ BADGES ══ */
+.badge{display:inline-flex;align-items:center;gap:4px;font-size:12px;padding:4px 12px;border-radius:20px;font-weight:700;}
+.badge-blue{background:var(--purple-bg);color:var(--purple-text);}
+.badge-green{background:var(--green-bg);color:var(--green-text);}
+.badge-red{background:var(--red-bg);color:var(--red-text);}
+.badge-amber{background:var(--amber-bg);color:var(--amber-text);}
+.badge-gray{background:var(--surface2);color:var(--text2);}
+
+/* ══ FORMS ══ */
+.form-group{margin-bottom:1rem;}
+.form-group label{display:block;font-size:12px;color:var(--text2);margin-bottom:6px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;}
+input[type=text],input[type=password],input[type=datetime-local],input[type=number],textarea,select{
+  width:100%;border:1.5px solid var(--border);border-radius:var(--radius-sm);
+  padding:10px 14px;font-size:14px;font-family:var(--font);
+  background:var(--surface);color:var(--text);resize:vertical;
+  transition:all 0.2s;font-weight:500;
+}
+input:focus,textarea:focus,select:focus{
+  outline:none;border-color:var(--accent);
+  box-shadow:0 0 0 4px rgba(194,100,138,0.12);
+  background:#fff;
+}
+.checkbox-row{display:flex;align-items:center;gap:8px;font-size:14px;color:var(--text2);cursor:pointer;margin-top:6px;font-weight:600;}
+.checkbox-row input[type=checkbox]{width:17px;height:17px;accent-color:var(--accent);cursor:pointer;}
+
+/* ══ BUTTONS ══ */
+.btn{
+  display:inline-flex;align-items:center;gap:7px;padding:10px 20px;
+  border:1.5px solid var(--border2);border-radius:var(--radius-sm);
+  font-size:14px;cursor:pointer;background:var(--surface);color:var(--text2);
+  font-family:var(--font);font-weight:700;transition:all 0.2s;letter-spacing:0.02em;
+}
+.btn:hover{background:var(--surface2);border-color:var(--accent);color:var(--accent);}
+.btn:active{transform:scale(0.96);}
+
+.btn-primary{
+  background:linear-gradient(135deg,var(--accent) 0%,#a84870 100%);
+  color:#fff;border-color:transparent;
+  box-shadow:0 4px 14px rgba(194,100,138,0.3);
+}
+.btn-primary:hover{background:linear-gradient(135deg,#b05578 0%,#903d60 100%);color:#fff;border-color:transparent;box-shadow:0 6px 18px rgba(194,100,138,0.4);}
+
+.btn-success{
+  background:linear-gradient(135deg,#9b7cc4 0%,#c2648a 100%);
+  color:#fff;border-color:transparent;
+  box-shadow:0 4px 14px rgba(155,124,196,0.3);
+}
+.btn-success:hover{opacity:0.9;color:#fff;border-color:transparent;}
+
+.btn-purple{
+  background:linear-gradient(135deg,var(--purple) 0%,#7c5ea8 100%);
+  color:#fff;border-color:transparent;
+  box-shadow:0 4px 14px rgba(155,124,196,0.3);
+}
+
+.btn-danger{color:var(--red-text);border-color:#f4c0ce;background:var(--red-bg);}
+.btn-danger:hover{background:#fbd0db;border-color:var(--red);}
+
+.btn-sm{padding:6px 13px;font-size:12px;border-radius:var(--radius-xs);}
+.btn-full{width:100%;justify-content:center;}
+
+/* ══ DIVIDER ══ */
+.divider{border:none;border-top:1.5px dashed var(--border);margin:1.5rem 0;}
+
+/* ══ BACK BUTTON ══ */
+.back-btn{
+  display:inline-flex;align-items:center;gap:7px;font-size:13px;
+  color:var(--text2);cursor:pointer;margin-bottom:1.5rem;background:none;
+  border:none;font-family:var(--font);padding:0;transition:all 0.2s;font-weight:700;
+}
+.back-btn:hover{color:var(--accent);}
+
+/* ══ QUESTION CARDS ══ */
+.question-card h3{font-size:15px;font-weight:700;color:var(--text);margin-bottom:7px;line-height:1.4;}
+.question-card .preview{font-size:13px;color:var(--text2);margin-bottom:10px;line-height:1.55;}
+.card-meta{display:flex;flex-wrap:wrap;gap:7px;align-items:center;}
+.detail-header h2{font-family:var(--font-serif);font-size:26px;color:var(--text);margin-bottom:8px;line-height:1.3;}
+.detail-header .body-text{font-size:15px;color:var(--text2);line-height:1.65;}
+
+/* ══ TIMER BAR ══ */
+.timer-bar{display:flex;align-items:center;gap:10px;padding:12px 16px;border-radius:var(--radius-sm);margin-bottom:1rem;font-size:13px;font-weight:700;border:1.5px solid transparent;}
+.timer-open{background:var(--purple-bg);color:var(--purple-text);border-color:var(--purple);}
+.timer-closed{background:var(--red-bg);color:var(--red-text);border-color:var(--red);}
+.timer-soon{background:var(--amber-bg);color:var(--amber-text);border-color:var(--amber);}
+
+/* ══ REPLIES ══ */
+.reply-card{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:1rem 1.25rem;margin-bottom:0.75rem;}
+.reply-author{font-size:12px;font-weight:700;color:var(--accent);margin-bottom:5px;display:flex;align-items:center;gap:5px;}
+.reply-text{font-size:14px;color:var(--text);line-height:1.65;font-weight:500;}
+.reply-time{font-size:11px;color:var(--text3);margin-top:6px;font-weight:600;}
+.reply-actions{display:flex;gap:8px;margin-top:10px;align-items:center;}
+.nested-replies{margin-left:1.5rem;margin-top:0.75rem;padding-left:1rem;border-left:3px solid var(--border);}
+.nested-reply{background:var(--surface2);border-radius:var(--radius-xs);padding:0.75rem;margin-bottom:0.5rem;}
+.inline-reply-form{background:var(--surface2);border-radius:var(--radius-sm);padding:1rem;margin-top:0.75rem;display:none;border:1.5px dashed var(--border2);}
+.inline-reply-form input,.inline-reply-form textarea{margin-bottom:8px;}
+.inline-reply-form-actions{display:flex;gap:8px;}
+
+/* ══ GRADE STATS ══ */
+.grade-overview{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:1.5rem;}
+@media(max-width:560px){.grade-overview{grid-template-columns:1fr 1fr;}}
+.grade-stat{
+  background:var(--surface);border:1.5px solid var(--border);
+  border-radius:var(--radius);padding:1.25rem;
+  box-shadow:var(--shadow-card);text-align:center;
+  position:relative;overflow:hidden;
+}
+.grade-stat::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:4px;
+  background:linear-gradient(90deg,var(--accent),var(--purple));
+}
+.grade-stat .value{font-size:36px;font-weight:700;font-family:var(--font-serif);margin-bottom:4px;margin-top:4px;}
+.grade-stat .label{font-size:11px;color:var(--text2);font-weight:700;text-transform:uppercase;letter-spacing:0.06em;}
+.grade-stat .sub{font-size:11px;color:var(--text3);margin-top:2px;font-weight:600;}
+
+.criteria-row{display:flex;align-items:center;justify-content:space-between;padding:13px 0;border-bottom:1.5px dashed var(--border);}
+.criteria-row:last-child{border-bottom:none;}
+.criteria-grade{font-size:24px;font-weight:700;min-width:52px;text-align:right;font-family:var(--font-serif);}
+.criteria-grade.low{color:var(--red);}.criteria-grade.mid{color:var(--amber);}.criteria-grade.high{color:var(--purple);}.criteria-grade.none{color:var(--text3);}
+.progress-bar-wrap{height:7px;background:var(--surface2);border-radius:10px;margin-top:7px;overflow:hidden;}
+.progress-bar{height:100%;border-radius:10px;transition:width 0.9s ease;}
+
+/* ══ PARCIAL TABS ══ */
+.parcial-tabs{display:flex;gap:8px;margin-bottom:1.5rem;flex-wrap:wrap;}
+.parcial-tab{
+  padding:8px 18px;border-radius:20px;font-size:13px;cursor:pointer;
+  background:var(--surface);border:1.5px solid var(--border);
+  font-family:var(--font);color:var(--text2);transition:all 0.2s;font-weight:700;
+}
+.parcial-tab.active{
+  background:linear-gradient(135deg,var(--purple),#7c5ea8);
+  color:#fff;border-color:transparent;box-shadow:0 4px 14px rgba(155,124,196,0.3);
+}
+.parcial-tab.active-current{
+  background:linear-gradient(135deg,#9b7cc4,#c2648a);
+  color:#fff;border-color:transparent;box-shadow:0 4px 14px rgba(155,124,196,0.3);
+}
+.parcial-tab:hover:not(.active):not(.active-current){border-color:var(--accent);color:var(--accent);}
+
+/* ══ MOTIVATIONAL ══ */
+.motivational{
+  background:linear-gradient(135deg,#c2648a 0%,#9b7cc4 60%,#6aaad4 100%);
+  color:#fff;border-radius:var(--radius);padding:1.5rem 1.75rem;margin-bottom:1rem;
+  position:relative;overflow:hidden;box-shadow:var(--shadow);
+}
+.motivational::before{content:'🌸';position:absolute;right:18px;top:14px;font-size:32px;opacity:0.45;}
+.motivational::after{content:'✨';position:absolute;right:50px;bottom:12px;font-size:18px;opacity:0.3;}
+.motivational p{font-size:15px;line-height:1.65;font-style:italic;font-weight:600;}
+.motivational .mauthor{font-size:12px;margin-top:8px;opacity:0.82;font-weight:700;}
+
+.motivational-attend{border-radius:var(--radius-sm);padding:1rem 1.375rem;margin-bottom:1rem;font-size:14px;line-height:1.6;font-weight:700;border:1.5px solid transparent;}
+.attend-perfect{background:linear-gradient(135deg,#c2648a,#9b7cc4);color:#fff;box-shadow:0 4px 14px rgba(194,100,138,0.25);}
+.attend-good{background:var(--purple-bg);color:var(--purple-text);border-color:var(--purple);}
+.attend-warn{background:var(--amber-bg);color:var(--amber-text);border-color:var(--amber);}
+.attend-danger{background:var(--red-bg);color:var(--red-text);border-color:var(--red);}
+.attend-blocked{background:linear-gradient(135deg,#d96b82,#b84560);color:#fff;box-shadow:0 4px 14px rgba(217,107,130,0.3);}
+
+/* ══ ADMIN PANEL ══ */
+.admin-panel{
+  background:var(--surface);border:1.5px solid var(--border);
+  border-radius:var(--radius);padding:1.375rem;margin-bottom:1.25rem;
+  box-shadow:var(--shadow-card);
+}
+.admin-panel-title{
+  font-size:11px;font-weight:700;color:var(--accent);
+  text-transform:uppercase;letter-spacing:0.08em;margin-bottom:1rem;
+  display:flex;align-items:center;gap:7px;
+}
+.q-manage{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:11px 0;border-bottom:1.5px dashed var(--border);}
+.q-manage:last-child{border-bottom:none;}
+
+/* ══ STUDENT NAVIGATOR ══ */
+.student-nav{
+  display:flex;align-items:center;justify-content:space-between;
+  background:linear-gradient(135deg,rgba(194,100,138,0.08),rgba(155,124,196,0.08));
+  border:1.5px solid var(--accent);border-radius:var(--radius);
+  padding:1rem 1.25rem;margin-bottom:1.25rem;
+  box-shadow:0 0 0 4px rgba(194,100,138,0.08);
+}
+.student-nav-info{text-align:center;flex:1;}
+.student-nav-info .sname{font-size:17px;font-weight:700;font-family:var(--font-serif);color:var(--accent);}
+.student-nav-info .smat{font-size:12px;color:var(--text3);margin-top:2px;font-weight:600;}
+.student-nav-dots{display:flex;gap:6px;justify-content:center;margin-top:9px;flex-wrap:wrap;}
+.student-dot{width:9px;height:9px;border-radius:50%;background:var(--border2);cursor:pointer;transition:all 0.2s;}
+.student-dot.active{background:var(--accent);transform:scale(1.5);box-shadow:0 0 0 3px rgba(194,100,138,0.2);}
+
+/* ══ GRADE INPUTS ══ */
+.grade-input-wrap{display:flex;flex-direction:column;align-items:center;gap:4px;}
+.grade-input-wrap label{font-size:10px;color:var(--text2);font-weight:700;text-align:center;max-width:70px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.grade-input-wrap input{width:66px;text-align:center;padding:8px 6px;font-size:14px;font-weight:700;border-radius:var(--radius-xs);}
+
+/* ══ ATTEND BUTTONS ══ */
+.attend-btn-group{display:flex;gap:5px;justify-content:center;}
+.attend-btn{
+  padding:6px 12px;border-radius:20px;font-size:12px;font-weight:700;
+  cursor:pointer;border:1.5px solid transparent;font-family:var(--font);
+  transition:all 0.2s;opacity:0.38;
+}
+.attend-btn.sel{opacity:1;transform:scale(1.06);box-shadow:0 3px 10px rgba(0,0,0,0.12);}
+.attend-btn.presente{background:var(--purple-bg);color:var(--purple-text);border-color:var(--purple);}
+.attend-btn.falta{background:var(--red-bg);color:var(--red-text);border-color:var(--red);}
+.attend-btn.justificante{background:var(--amber-bg);color:var(--amber-text);border-color:var(--amber);}
+
+/* ══ SAVING INDICATOR ══ */
+.saving-indicator{
+  position:fixed;top:70px;right:16px;
+  background:linear-gradient(135deg,#9b7cc4,#c2648a);
+  color:#fff;padding:9px 18px;border-radius:22px;font-size:13px;font-weight:700;
+  display:none;align-items:center;gap:7px;z-index:100;box-shadow:var(--shadow);
+}
+.saving-indicator.show{display:flex;}
+
+/* ══ ATTEND PILLS ══ */
+.attend-pill{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;}
+.pill-p{background:var(--purple-bg);color:var(--purple-text);}
+.pill-f{background:var(--red-bg);color:var(--red-text);}
+.pill-j{background:var(--amber-bg);color:var(--amber-text);}
+.pill-n{background:var(--surface2);color:var(--text3);}
+
+/* ══ LOGIN ══ */
+.login-wrap{display:flex;align-items:center;justify-content:center;min-height:60vh;}
+.login-box{
+  background:var(--surface);border:1.5px solid var(--border);
+  border-radius:var(--radius);padding:2.75rem 2.25rem;max-width:400px;width:100%;
+  box-shadow:var(--shadow-lg);position:relative;overflow:hidden;
+}
+.login-box::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:5px;
+  background:linear-gradient(90deg,var(--accent),var(--purple),var(--sky));
+}
+.login-box .licon{
+  width:58px;height:58px;
+  background:linear-gradient(135deg,var(--accent),var(--purple));
+  border-radius:18px;display:flex;align-items:center;justify-content:center;
+  margin-bottom:1.25rem;font-size:26px;color:#fff;box-shadow:0 6px 18px rgba(194,100,138,0.3);
+}
+.login-box h2{font-family:var(--font-serif);font-size:26px;margin-bottom:6px;color:var(--text);}
+.login-box p{font-size:14px;color:var(--text2);margin-bottom:1.75rem;line-height:1.55;font-weight:500;}
+
+/* ══ ROLE BARS ══ */
+.role-bar{display:none;align-items:center;gap:9px;padding:9px 16px;border-radius:var(--radius-sm);margin-bottom:1.25rem;font-size:13px;font-weight:700;border:1.5px solid transparent;}
+.role-bar-teacher{background:var(--purple-bg);color:var(--purple-text);border-color:var(--purple);}
+.role-bar-student{background:var(--purple-bg);color:var(--purple-text);border-color:var(--purple);}
+
+/* ══ STEPPER ══ */
+.stepper{display:flex;margin-bottom:1.5rem;border-radius:var(--radius-sm);overflow:hidden;border:1.5px solid var(--border);box-shadow:var(--shadow-card);}
+.step{flex:1;padding:11px 8px;background:var(--surface2);text-align:center;font-size:12px;font-weight:700;color:var(--text3);border-right:1.5px solid var(--border);}
+.step:last-child{border-right:none;}
+.step.done{background:var(--purple-bg);color:var(--purple-text);}
+.step.current{background:linear-gradient(135deg,var(--accent),var(--purple));color:#fff;}
+.step .step-label{font-size:10px;font-weight:600;margin-top:3px;opacity:0.85;}
+
+/* ══ PARCIAL BADGE ══ */
+.parcial-badge{font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;}
+.p1{background:#fce8f3;color:#7a2a52;}.p2{background:var(--purple-bg);color:var(--purple-text);}.pf{background:var(--amber-bg);color:var(--amber-text);}
+.week-tag{font-size:11px;font-weight:700;color:var(--accent);background:var(--accent-bg);padding:3px 10px;border-radius:20px;border:1px solid var(--border);}
+
+/* ══ TOAST ══ */
+.toast{
+  position:fixed;bottom:24px;left:50%;transform:translateX(-50%);
+  background:linear-gradient(135deg,var(--accent),var(--purple));
+  color:#fff;padding:12px 24px;border-radius:24px;font-size:13px;font-weight:700;
+  opacity:0;transition:opacity 0.2s;pointer-events:none;z-index:200;
+  white-space:nowrap;box-shadow:var(--shadow-lg);letter-spacing:0.02em;
+}
+.toast.show{opacity:1;}
+
+/* ══ CELEBRATION ══ */
+.celebration-overlay{position:fixed;inset:0;background:rgba(61,32,64,0.45);z-index:300;display:none;align-items:center;justify-content:center;backdrop-filter:blur(3px);}
+.celebration-overlay.show{display:flex;}
+.celebration-box{
+  background:var(--surface);border-radius:var(--radius);padding:2.75rem 2.25rem;
+  max-width:420px;width:92%;text-align:center;box-shadow:var(--shadow-lg);
+  animation:popIn 0.4s cubic-bezier(0.34,1.56,0.64,1);
+  border-top:5px solid var(--accent);
+}
+@keyframes popIn{from{transform:scale(0.65);opacity:0;}to{transform:scale(1);opacity:1;}}
+.celebration-box .emoji{font-size:62px;margin-bottom:1rem;display:block;}
+.celebration-box h3{font-family:var(--font-serif);font-size:26px;margin-bottom:8px;color:var(--text);}
+.celebration-box p{font-size:14px;color:var(--text2);line-height:1.65;font-weight:500;}
+
+/* ══ LAYOUT HELPERS ══ */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+@media(max-width:500px){.two-col{grid-template-columns:1fr;}}
+.three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;}
+@media(max-width:520px){.three-col{grid-template-columns:1fr;}}
+.empty-state{text-align:center;padding:4rem 1rem;color:var(--text2);}
+.empty-state i{font-size:44px;display:block;margin-bottom:12px;color:var(--text3);}
+.empty-state p{font-size:15px;font-weight:600;}
+
+/* ══ DECORATIVE FLOURISH ══ */
+.section-header{
+  display:flex;align-items:center;gap:10px;margin-bottom:1.25rem;
+  font-size:12px;font-weight:700;color:var(--text2);
+  text-transform:uppercase;letter-spacing:0.08em;
+}
+.section-header::after{content:'';flex:1;height:1.5px;background:linear-gradient(90deg,var(--border),transparent);}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
+.fade-up{animation:fadeUp 0.3s ease both;}
+
+/* Scrollbar pastel */
+::-webkit-scrollbar{width:6px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:10px;}
+::-webkit-scrollbar-thumb:hover{background:var(--accent);}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-brand">
+    <!-- Logo búho Black IA adaptado a paleta pastel -->
+    <svg width="36" height="36" viewBox="0 0 100 110" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;">
+      <!-- Cuerpo ovalado -->
+      <ellipse cx="50" cy="58" rx="30" ry="36" fill="rgba(255,255,255,0.18)" stroke="rgba(255,255,255,0.55)" stroke-width="3"/>
+      <!-- Ala izquierda -->
+      <path d="M20 65 Q8 72 12 88 Q28 78 34 68Z" fill="rgba(255,255,255,0.22)" stroke="rgba(255,255,255,0.45)" stroke-width="2"/>
+      <!-- Ala derecha -->
+      <path d="M80 65 Q92 72 88 88 Q72 78 66 68Z" fill="rgba(255,255,255,0.22)" stroke="rgba(255,255,255,0.45)" stroke-width="2"/>
+      <!-- Oreja izquierda -->
+      <path d="M28 30 L20 10 L40 24Z" fill="rgba(255,255,255,0.7)" stroke="rgba(255,255,255,0.9)" stroke-width="1.5"/>
+      <!-- Oreja derecha -->
+      <path d="M72 30 L80 10 L60 24Z" fill="rgba(255,255,255,0.7)" stroke="rgba(255,255,255,0.9)" stroke-width="1.5"/>
+      <!-- Cabeza -->
+      <circle cx="50" cy="34" r="20" fill="rgba(255,255,255,0.2)" stroke="rgba(255,255,255,0.6)" stroke-width="2.5"/>
+      <!-- Ojo izquierdo exterior -->
+      <circle cx="40" cy="33" r="8" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.8)" stroke-width="2"/>
+      <!-- Ojo derecho exterior -->
+      <circle cx="60" cy="33" r="8" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.8)" stroke-width="2"/>
+      <!-- Ojo izquierdo dorado -->
+      <circle cx="40" cy="33" r="5" fill="#f0c040" opacity="0.9"/>
+      <circle cx="40" cy="33" r="2.5" fill="#1a1010" opacity="0.8"/>
+      <!-- Ojo derecho dorado -->
+      <circle cx="60" cy="33" r="5" fill="#f0c040" opacity="0.9"/>
+      <circle cx="60" cy="33" r="2.5" fill="#1a1010" opacity="0.8"/>
+      <!-- Pico -->
+      <path d="M47 38 L53 38 L50 44Z" fill="rgba(255,255,255,0.85)"/>
+      <!-- Líneas del cuerpo -->
+      <path d="M50 52 L42 72 M50 52 L58 72" stroke="rgba(255,255,255,0.35)" stroke-width="1.5" stroke-linecap="round"/>
+      <!-- Patas -->
+      <path d="M40 92 L36 102 M40 92 L40 102 M40 92 L44 102" stroke="rgba(255,255,255,0.6)" stroke-width="2" stroke-linecap="round"/>
+      <path d="M60 92 L56 102 M60 92 L60 102 M60 92 L64 102" stroke="rgba(255,255,255,0.6)" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+    <div class="title-group">
+      <span class="main-title">PEDAGOGIA</span>
+      <span class="sub-title" style="font-family:'Barlow Condensed',sans-serif;letter-spacing:0.18em;font-size:9px;opacity:0.8;">BLACK IA · WEB EDUCATION</span>
+    </div>
+  </div>
+  <div class="topbar-right">
+    <span class="online-dot"></span>
+    <span class="parcial-chip" id="topbar-parcial">...</span>
+  </div>
+</div>
+
+<div class="saving-indicator" id="saving-indicator"><i class="ti ti-device-floppy"></i> Guardando...</div>
+
+<div class="container">
+  <div id="role-bar-teacher" class="role-bar role-bar-teacher">
+    <i class="ti ti-shield-check"></i><span>Docente activo 📚</span>
+    <button onclick="logoutTeacher()" style="margin-left:auto;background:none;border:none;cursor:pointer;font-size:12px;color:var(--purple-text);font-family:var(--font);font-weight:700;">Cerrar sesión</button>
+  </div>
+  <div id="role-bar-student" class="role-bar role-bar-student">
+    <i class="ti ti-user-heart"></i><span id="student-bar-name"></span>
+    <button onclick="logoutStudent()" style="margin-left:auto;background:none;border:none;cursor:pointer;font-size:12px;color:var(--purple-text);font-family:var(--font);font-weight:700;">Cerrar sesión</button>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" id="tab-students" onclick="showTab('students')"><i class="ti ti-user-heart"></i> Alumnas</button>
+    <button class="tab" id="tab-teacher" onclick="showTab('teacher')"><i class="ti ti-lock"></i> Docente</button>
+  </div>
+
+  <div class="section active" id="students-section">
+    <div id="student-login-area"></div>
+    <div id="student-dashboard" style="display:none;"></div>
+  </div>
+  <div class="section" id="teacher-section">
+    <div id="teacher-login-area"></div>
+    <div id="teacher-panel" style="display:none;"></div>
+  </div>
+</div>
+
+<!-- Footer Black IA discreta -->
+<footer style="
+  text-align:center;padding:1.5rem 1rem 2rem;
+  border-top:1px solid var(--border);margin-top:1rem;
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  opacity:0.55;transition:opacity 0.2s;"
+  onmouseover="this.style.opacity='0.85'"
+  onmouseout="this.style.opacity='0.55'">
+  <!-- Mini búho -->
+  <svg width="18" height="20" viewBox="0 0 100 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="50" cy="58" rx="30" ry="36" fill="var(--border2)"/>
+    <path d="M28 30 L20 10 L40 24Z" fill="var(--text3)"/>
+    <path d="M72 30 L80 10 L60 24Z" fill="var(--text3)"/>
+    <circle cx="50" cy="34" r="20" fill="var(--text3)"/>
+    <circle cx="40" cy="33" r="5" fill="#d4a017"/>
+    <circle cx="40" cy="33" r="2.5" fill="var(--text)"/>
+    <circle cx="60" cy="33" r="5" fill="#d4a017"/>
+    <circle cx="60" cy="33" r="2.5" fill="var(--text)"/>
+    <path d="M47 38 L53 38 L50 44Z" fill="var(--surface)"/>
+  </svg>
+  <span style="font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;color:var(--text2);letter-spacing:0.12em;">BLACK IA</span>
+  <span style="font-size:11px;color:var(--text3);letter-spacing:0.08em;font-weight:600;">WEB EDUCATION</span>
+</footer>
+
+<div class="celebration-overlay" id="celebration" onclick="closeCelebration()">
+  <div class="celebration-box" onclick="event.stopPropagation()">
+    <span class="emoji" id="cel-emoji">🎉</span>
+    <h3 id="cel-title">¡Listo!</h3>
+    <p id="cel-msg"></p>
+    <button class="btn btn-primary" style="margin-top:1.5rem;" onclick="closeCelebration()">¡Entendido! 🌸</button>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script type="module">
+// ══════════════════════════════════════════════════════
+// FIREBASE
+// ══════════════════════════════════════════════════════
+const firebaseConfig={
+  apiKey:"AIzaSyDIucPhIp0gSLPcmCUTYrY7CJx5LYBzCQU",
+  authDomain:"foro-ee8a5.firebaseapp.com",
+  databaseURL:"https://foro-ee8a5-default-rtdb.firebaseio.com",
+  projectId:"foro-ee8a5",
+  storageBucket:"foro-ee8a5.firebasestorage.app",
+  messagingSenderId:"548605948271",
+  appId:"1:548605948271:web:6d903b2432429d7a04b89a"
+};
+import{initializeApp}from"https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import{getDatabase,ref,set,get,onValue}from"https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+const fbApp=initializeApp(firebaseConfig);
+const db=getDatabase(fbApp);
+
+// ══════════════════════════════════════════════════════
+// CONSTANTES
+// ══════════════════════════════════════════════════════
+const TEACHER_PASS="cuicalli123";
+const MAX_FALTAS=3;
+
+const ROSTER=[
+  {mat:"251094320",name:"ALBINO VAZQUEZ GRECIA VALERI"},
+  {mat:"252024655",name:"FELIX BAUTISTA LLUVIA GLORIA"},
+  {mat:"251084134",name:"FUENTES HERNANDEZ DIOCELIN MONSERRATH"},
+  {mat:"251083984",name:"MARTINEZ GARCIA DIANA SHARON"},
+  {mat:"251063154",name:"RAMOS ROSARIO PERLA VALERIA"},
+  {mat:"252014623",name:"RANGEL PILLADO KAREN YOALI"},
+  {mat:"251083462",name:"RANZAHUER VELAZQUEZ BRISA EDITH"},
+  {mat:"251063144",name:"ROMAN GARCIA JOSEFINA"},
+  {mat:"251073394",name:"SANCHEZ ESCALANTE MARIANNE GISSELLE"},
+  {mat:"251083926",name:"VELAZQUEZ HERNANDEZ BRENDA"}
+];
+
+const CRITERIA=[
+  {key:"examen",  label:"Examen",           weight:0.40,icon:"ti-clipboard-check",freq:"parcial"},
+  {key:"foro",    label:"Foros de Debate",  weight:0.20,icon:"ti-message-circle",  freq:"semana"},
+  {key:"matriz",  label:"Matriz de Cursos", weight:0.30,icon:"ti-table",           freq:"semana"},
+  {key:"analisis",label:"Análisis de Casos",weight:0.10,icon:"ti-presentation",    freq:"parcial"}
+];
+
+const PERIODS=[
+  {key:"p1",label:"Primer Parcial",      short:"1er Parcial", cls:"p1"},
+  {key:"p2",label:"Segundo Parcial",     short:"2do Parcial", cls:"p2"},
+  {key:"pf",label:"Evaluación Final",    short:"Ev. Final",   cls:"pf"}
+];
+
+const PHRASES={
+  excellent:[
+    "La mejor maestra no es la que sabe más, sino la que inspira más. ¡Tú ya lo estás logrando! 🌸",
+    "Educar es encender una llama, no llenar un recipiente. Tu llama brilla con todo. ✨",
+    "Una pedagoga extraordinaria cambia el mundo una aula a la vez. ¡Ese será tu impacto! 🎓",
+    "Tu dedicación hoy construye las aulas del mañana. ¡Sobresaliente, futura pedagoga! 💜"
+  ],
+  good:[
+    "Cada página que estudias hoy es una lección que compartirás mañana. ¡Sigue adelante! 📚",
+    "Las grandes pedagogas no nacen, se forman con esfuerzo y pasión. ¡Vas por el camino correcto! 🌺",
+    "Enseñar es un arte y tú estás perfeccionando tu técnica. ¡Muy buen trabajo! 🎨",
+    "El aula te espera. Cada esfuerzo que haces hoy forma a la maestra que serás. ¡Ánimo! 💫"
+  ],
+  average:[
+    "La pedagogía necesita mentes valientes. Aún hay tiempo, ¡da ese paso extra hoy! 🌷",
+    "Las mejores maestras también tuvieron momentos difíciles. Lo que importa es no rendirse. 💪",
+    "Cada actividad completada te acerca más a tu vocación. ¡No te detengas, futura docente! 🌸",
+    "Recuerda por qué elegiste esta carrera. Esa razón es tu mayor motivación. ¡Tú puedes! ✨"
+  ],
+  low:[
+    "Las grandes educadoras se construyen en los momentos difíciles. ¡Este es tu momento de crecer! 🌱",
+    "No importa el punto de partida, sino la dirección en la que caminas. ¡Vamos, futura maestra! 💜",
+    "Pide ayuda, reorganízate y vuelve con más fuerza. Tu vocación es más grande que cualquier obstáculo. 🌺",
+    "Cada maestra tiene su propio ritmo. El tuyo aún está encontrándose. ¡Sigue creyendo en ti! 💫"
+  ]
+};
+
+// ══════════════════════════════════════════════════════
+// ESTADO
+// ══════════════════════════════════════════════════════
+let isTeacher=false;
+let currentStudent=null;
+let viewingParcial=null;
+let teacherStudentIdx=0;
+let teacherTab='student'; // 'student'|'forum'|'config'
+let currentStudentTab='home'; // 'home'|'forum'
+let questions=[];
+let replies={};
+// grades[mat][pkey][criterioKey] = number (parcial) | {sessId: number} (semana)
+let grades={};
+// attendance[pkey][sessId][mat] = 'P'|'F'|'J'
+let attendance={};
+// sessions[pkey] = [{id, label}]  — label es el nombre de la sesión
+let sessions={};
+let config={activePeriod:"p1",periods:{p1:{weeks:8},p2:{weeks:8},pf:{}}};
+
+// ── Buffer de edición en vivo (no se guarda hasta cambiar de alumno) ──
+// Usamos un Map para guardar DOM inputs por referencia
+let pendingSave=false;
+let saveTimer=null;
+
+// ══════════════════════════════════════════════════════
+// FIREBASE HELPERS
+// ══════════════════════════════════════════════════════
+async function saveAll(){
+  showSavingIndicator();
+  await set(ref(db,'forum'),{questions,replies,grades,attendance,sessions,config});
+  hideSavingIndicator();
+}
+async function loadAll(){
+  const snap=await get(ref(db,'forum'));
+  if(snap.exists()){
+    const d=snap.val();
+    questions=d.questions||[];
+    replies=d.replies||{};
+    grades=d.grades||{};
+    attendance=d.attendance||{};
+    sessions=d.sessions||{};
+    if(d.config)config=d.config;
+  }
+  updateTopbar();renderQuestions();
+}
+function startListener(){
+  onValue(ref(db,'forum'),snap=>{
+    if(!snap.exists())return;
+    const d=snap.val();
+    questions=d.questions||[];replies=d.replies||{};grades=d.grades||{};
+    attendance=d.attendance||{};sessions=d.sessions||{};
+    if(d.config)config=d.config;
+    updateTopbar();
+    // Solo actualizar si el alumno NO está leyendo/escribiendo en una pregunta
+    const insideStudentQuestion=document.getElementById('student-question-detail')?.style.display!=='none';
+    if(!insideStudentQuestion&&currentStudent){
+      renderStudentDashboard();
+    }
+  });
+}
+
+// ══════════════════════════════════════════════════════
+// SAVING INDICATOR
+// ══════════════════════════════════════════════════════
+function showSavingIndicator(){document.getElementById('saving-indicator').classList.add('show');}
+function hideSavingIndicator(){setTimeout(()=>document.getElementById('saving-indicator').classList.remove('show'),800);}
+
+// ══════════════════════════════════════════════════════
+// UTILS
+// ══════════════════════════════════════════════════════
+function esc(s){if(!s)return'';return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2600);}
+function getStatus(q){if(!q.closesAt)return'open';const d=q.closesAt-Date.now();if(d<=0)return'closed';if(d<3600000)return'soon';return'open';}
+function timeLeft(ts){const d=ts-Date.now();if(d<=0)return'cerrado';const h=Math.floor(d/3600000);const m=Math.floor((d%3600000)/60000);if(h>24)return`${Math.floor(h/24)}d ${h%24}h`;if(h>0)return`${h}h ${m}m`;return`${m} min`;}
+function formatDate(ts){return new Date(ts).toLocaleString('es-MX',{dateStyle:'short',timeStyle:'short'});}
+function countReplies(qid){const r=replies[qid]||[];return r.reduce((a,r)=>a+1+(r.replies?r.replies.length:0),0);}
+function firstNames(name){return name.split(' ').slice(-2).join(' ');}
+function getPhrase(avg){let p;if(avg>=9)p=PHRASES.excellent;else if(avg>=7.5)p=PHRASES.good;else if(avg>=6)p=PHRASES.average;else p=PHRASES.low;return p[Math.floor(Math.random()*p.length)];}
+function barColor(v){if(v===null||v===undefined)return'#ccc';if(v>=9)return'var(--purple)';if(v>=7)return'var(--amber)';return'var(--red)';}
+function gradeColor(v){if(v===null||v===undefined)return'none';if(v>=9)return'high';if(v>=7)return'mid';return'low';}
+function updateTopbar(){const p=PERIODS.find(p=>p.key===config.activePeriod)||PERIODS[0];document.getElementById('topbar-parcial').textContent=p.short;}
+function getSessions(pkey){return sessions[pkey]||[];}
+
+// Calcula faltas (solo 'F')
+function calcFaltas(mat,pkey){
+  const sess=getSessions(pkey);
+  let faltas=0,justificantes=0,presentes=0;
+  for(const s of sess){
+    const v=(attendance[pkey]||{})[s.id]?.[mat];
+    if(v==='F')faltas++;else if(v==='J')justificantes++;else if(v==='P')presentes++;
+  }
+  return{faltas,justificantes,presentes,total:sess.length};
+}
+
+// ── Calificaciones ──
+// Para criterios semanales las calificaciones se indexan por SESSION ID
+// Para criterios de parcial es un valor simple
+function calcCriteriaGrade(mat,criterioKey,freq,pkey){
+  const g=grades[mat]?.[pkey]?.[criterioKey];
+  if(freq==='semana'){
+    if(!g||typeof g!=='object')return null;
+    const vals=Object.values(g).map(v=>parseFloat(v)).filter(v=>!isNaN(v)&&v>=0);
+    if(!vals.length)return null;
+    return vals.reduce((a,b)=>a+b,0)/vals.length;
+  }
+  const v=parseFloat(g);return isNaN(v)?null:v;
+}
+
+function getActiveCriteria(pkey){
+  // Rúbricas por parcial: config.rubrics[pkey]
+  const rubricsPkey=(config.rubrics||{})[pkey]||{};
+  if(Object.keys(rubricsPkey).length>0){
+    return Object.entries(rubricsPkey).map(([key,r])=>({key,label:r.label,weight:r.weight,icon:r.icon||'ti-star',freq:r.freq}));
+  }
+  return CRITERIA;
+}
+function calcFinalGrade(mat,pkey){
+  let total=0;let hasAny=false;
+  for(const c of getActiveCriteria(pkey)){
+    const g=calcCriteriaGrade(mat,c.key,c.freq,pkey);
+    if(g!==null){total+=g*c.weight;hasAny=true;}
+  }
+  return hasAny?Math.min(10,total):null;
+}
+function calcGlobalGrade(mat){
+  const vals=[calcFinalGrade(mat,'p1'),calcFinalGrade(mat,'p2'),calcFinalGrade(mat,'pf')].filter(v=>v!==null);
+  if(!vals.length)return null;
+  return vals.reduce((a,b)=>a+b,0)/vals.length;
+}
+
+// ══════════════════════════════════════════════════════
+// READ ALL INPUTS FROM DOM AND SAVE TO grades/attendance
+// Called automatically when switching student or tab
+// ══════════════════════════════════════════════════════
+async function flushCurrentStudent(){
+  const mat=ROSTER[teacherStudentIdx].mat;
+  const ap=config.activePeriod;
+  let changed=false;
+
+  // ── Flush grades ──
+  for(const c of CRITERIA){
+    if(c.freq==='semana'){
+      const sess=getSessions(ap);
+      for(const s of sess){
+        const inp=document.getElementById(`gi_${c.key}_${s.id}`);
+        if(!inp)continue;
+        const raw=inp.value.trim();
+        const val=raw===''?null:parseFloat(raw);
+        if(isNaN(val)&&raw!=='')continue;
+        if(!grades[mat])grades[mat]={};
+        if(!grades[mat][ap])grades[mat][ap]={};
+        if(!grades[mat][ap][c.key]||typeof grades[mat][ap][c.key]!=='object')grades[mat][ap][c.key]={};
+        const prev=grades[mat][ap][c.key][s.id];
+        if(prev!==val){grades[mat][ap][c.key][s.id]=val;changed=true;}
+      }
+    } else {
+      const inp=document.getElementById(`gi_${c.key}`);
+      if(!inp)continue;
+      const raw=inp.value.trim();
+      const val=raw===''?null:parseFloat(raw);
+      if(isNaN(val)&&raw!=='')continue;
+      if(!grades[mat])grades[mat]={};
+      if(!grades[mat][ap])grades[mat][ap]={};
+      const prev=grades[mat][ap][c.key];
+      if(prev!==val){grades[mat][ap][c.key]=val;changed=true;}
+    }
+  }
+
+  // ── Flush attendance ──
+  const sess=getSessions(ap);
+  for(const s of sess){
+    const selVal=document.querySelector(`input[name="att_${s.id}"]:checked`)?.value;
+    if(!selVal)continue;
+    if(!attendance[ap])attendance[ap]={};
+    if(!attendance[ap][s.id])attendance[ap][s.id]={};
+    const prev=attendance[ap][s.id][mat];
+    if(prev!==selVal){attendance[ap][s.id][mat]=selVal;changed=true;}
+  }
+
+  if(changed){await saveAll();}
+  return changed;
+}
+
+// ══════════════════════════════════════════════════════
+// TAB NAVIGATION
+// ══════════════════════════════════════════════════════
+window.showTab=function(name){
+  ['students','teacher'].forEach(t=>{document.getElementById(t+'-section').classList.toggle('active',t===name);});
+  document.querySelectorAll('.tabs .tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('tab-'+name)?.classList.add('active');
+  if(name==='teacher')renderTeacherSection();
+  if(name==='students')renderStudentSection();
+};
+
+// ══════════════════════════════════════════════════════
+// FORUM
+// ══════════════════════════════════════════════════════
+function renderQuestions(){
+  const list=document.getElementById('questions-list');
+  const detail=document.getElementById('question-detail');
+  detail.style.display='none';list.style.display='block';
+  const pqs=questions.filter(q=>q.period===config.activePeriod||!q.period);
+  if(!pqs.length){list.innerHTML='<div class="empty-state"><i class="ti ti-message-off"></i><p>Aún no hay preguntas en este parcial.</p></div>';return;}
+  const ap=PERIODS.find(p=>p.key===config.activePeriod);
+  list.innerHTML=`<p style="font-size:12px;font-weight:600;color:var(--text2);margin-bottom:1rem;text-transform:uppercase;letter-spacing:0.06em;">${ap?.label||''} · ${pqs.length} pregunta${pqs.length!==1?'s':''}</p>`+
+  pqs.map(q=>{
+    const i=questions.indexOf(q);
+    const st=getStatus(q);const rc=countReplies(q.id);
+    const sb=st==='closed'?`<span class="badge badge-red"><i class="ti ti-lock"></i> Cerrado</span>`:
+      st==='soon'?`<span class="badge badge-amber"><i class="ti ti-clock"></i> ${timeLeft(q.closesAt)}</span>`:
+      q.closesAt?`<span class="badge badge-blue"><i class="ti ti-clock"></i> ${timeLeft(q.closesAt)}</span>`:
+      `<span class="badge badge-blue"><i class="ti ti-circle-check"></i> Abierto</span>`;
+    return`<div class="card card-clickable question-card fade-up" onclick="openQuestion(${i})">
+      <h3>${esc(q.title)}</h3>
+      ${q.body?`<p class="preview">${esc(q.body)}</p>`:''}
+      <div class="card-meta">${sb}<span class="badge badge-gray"><i class="ti ti-message"></i> ${rc}</span>${q.week?`<span class="week-tag">Ses ${q.week}</span>`:''}</div>
+    </div>`;
+  }).join('');
+}
+
+window.openQuestion=function(idx){
+  const q=questions[idx];
+  document.getElementById('questions-list').style.display='none';
+  const detail=document.getElementById('question-detail');detail.style.display='block';
+  const st=getStatus(q);const isClosed=st==='closed';const qReplies=replies[q.id]||[];
+  const timerHtml=q.closesAt?`<div class="timer-bar ${isClosed?'timer-closed':st==='soon'?'timer-soon':'timer-open'}"><i class="ti ti-clock"></i>${isClosed?`Cerrado el ${formatDate(q.closesAt)}`:`Cierra el ${formatDate(q.closesAt)} · Quedan <strong>${timeLeft(q.closesAt)}</strong>`}</div>`:'';
+  const authorVal=currentStudent?esc(firstNames(currentStudent.name)):'';
+  const authorField=currentStudent?`<input type="text" id="reply-author" value="${authorVal}" readonly style="background:var(--surface2);color:var(--text2);">`:`<input type="text" id="reply-author" placeholder="Tu nombre o apodo">`;
+  detail.innerHTML=`
+    <button class="back-btn" onclick="renderQuestions()"><i class="ti ti-arrow-left"></i> Volver</button>
+    ${timerHtml}
+    <div class="detail-header"><h2>${esc(q.title)}</h2>${q.body?`<p class="body-text">${esc(q.body)}</p>`:''}</div>
+    <hr class="divider">
+    <p style="font-size:13px;font-weight:600;color:var(--text2);margin-bottom:1rem;">${qReplies.length} respuesta${qReplies.length!==1?'s':''}</p>
+    <div id="replies-container">${renderRepliesHTML(qReplies,q.id,isClosed)}</div>
+    ${!isClosed?`<hr class="divider">
+      <h3 style="font-size:15px;font-weight:600;margin-bottom:1rem;"><i class="ti ti-edit" style="margin-right:6px;"></i>Tu respuesta</h3>
+      <div class="form-group"><label>Nombre</label>${authorField}</div>
+      <div class="form-group"><label>Tu argumento</label><textarea id="reply-text" rows="4" placeholder="Escribe tu postura..."></textarea></div>
+      <button class="btn btn-primary" onclick="submitReply('${q.id}')"><i class="ti ti-send"></i> Publicar</button>`
+    :`<div style="background:var(--red-bg);color:var(--red-text);padding:12px 16px;border-radius:var(--radius-sm);font-size:14px;font-weight:600;"><i class="ti ti-lock"></i> Debate cerrado.</div>`}`;
+};
+
+function renderRepliesHTML(reps,qid,isClosed){
+  if(!reps.length)return'<p style="font-size:14px;color:var(--text2);margin-bottom:1rem;">Sé el primero en responder.</p>';
+  return reps.map((r,ri)=>{
+    const nested=(r.replies||[]).map((nr,nri)=>`
+      <div class="nested-reply">
+        <div style="display:flex;justify-content:space-between;">
+          <p class="reply-author"><i class="ti ti-corner-down-right" style="font-size:12px;"></i> ${esc(nr.author)}</p>
+          ${isTeacher?`<button class="btn btn-danger btn-sm" onclick="deleteNestedReply('${qid}',${ri},${nri})"><i class="ti ti-trash"></i></button>`:''}
+        </div>
+        <p class="reply-text">${esc(nr.text)}</p><p class="reply-time">${nr.time}</p>
+      </div>`).join('');
+    const naa=currentStudent?`value="${esc(firstNames(currentStudent.name))}" readonly style="background:var(--surface2);"`:` placeholder="Tu nombre"`;
+    return`<div class="reply-card">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+        <p class="reply-author"><i class="ti ti-user" style="font-size:13px;"></i> ${esc(r.author)}</p>
+        ${isTeacher?`<button class="btn btn-danger btn-sm" onclick="deleteReply('${qid}',${ri})"><i class="ti ti-trash"></i></button>`:''}
+      </div>
+      <p class="reply-text">${esc(r.text)}</p><p class="reply-time">${r.time}</p>
+      <div class="reply-actions">${!isClosed?`<button class="btn btn-sm" onclick="toggleReplyForm('${qid}',${ri})"><i class="ti ti-corner-down-right"></i> Responder a ${esc(r.author)}</button>`:''}</div>
+      ${nested?`<div class="nested-replies">${nested}</div>`:''}
+      ${!isClosed?`<div class="inline-reply-form" id="rf-${qid}-${ri}">
+        <p style="font-size:12px;color:var(--text2);margin-bottom:8px;font-weight:600;">Respondiendo a ${esc(r.author)}</p>
+        <input type="text" id="rf-name-${qid}-${ri}" ${naa}>
+        <textarea id="rf-text-${qid}-${ri}" rows="3" placeholder="Escribe tu respuesta..."></textarea>
+        <div class="inline-reply-form-actions">
+          <button class="btn btn-primary btn-sm" onclick="submitNestedReply('${qid}',${ri})"><i class="ti ti-send"></i> Enviar</button>
+          <button class="btn btn-sm" onclick="toggleReplyForm('${qid}',${ri})">Cancelar</button>
+        </div>
+      </div>`:''}
+    </div>`;
+  }).join('');
+}
+window.toggleReplyForm=function(qid,ri){const f=document.getElementById(`rf-${qid}-${ri}`);const s=f.style.display!=='block';f.style.display=s?'block':'none';if(s)f.querySelector('input').focus();};
+window.submitReply=async function(qid){
+  const author=document.getElementById('reply-author').value.trim()||'Anónimo';
+  const text=document.getElementById('reply-text').value.trim();
+  if(!text){toast('Escribe tu argumento primero');return;}
+  if(!replies[qid])replies[qid]=[];
+  replies[qid].push({author,text,time:new Date().toLocaleString('es-MX',{dateStyle:'short',timeStyle:'short'}),replies:[]});
+  await saveAll();const idx=questions.findIndex(q=>q.id===qid);openQuestion(idx);
+  showCelebration('🎯','¡Respuesta enviada!',currentStudent?`¡Gracias por participar, futura maestra ${firstNames(currentStudent.name)}! Tu voz enriquece este espacio de aprendizaje. 🌸`:'¡Gracias por tu participación! Cada aporte cuenta en nuestra comunidad de aprendizaje. 💜');
+};
+window.submitNestedReply=async function(qid,ri){
+  const name=document.getElementById(`rf-name-${qid}-${ri}`).value.trim()||'Anónimo';
+  const text=document.getElementById(`rf-text-${qid}-${ri}`).value.trim();
+  if(!text){toast('Escribe tu respuesta');return;}
+  if(!replies[qid][ri].replies)replies[qid][ri].replies=[];
+  replies[qid][ri].replies.push({author:name,text,time:new Date().toLocaleString('es-MX',{dateStyle:'short',timeStyle:'short'})});
+  await saveAll();const idx=questions.findIndex(q=>q.id===qid);openQuestion(idx);
+  showCelebration('💬','¡Aporte registrado!',currentStudent?`¡Qué buena respuesta, ${firstNames(currentStudent.name)}! El debate se enriquece con perspectivas como la tuya, futura pedagoga. 🎓`:'¡Excelente intercambio de ideas! El diálogo es la base de la buena enseñanza. 💫');
+};
+window.deleteReply=async function(qid,ri){replies[qid].splice(ri,1);await saveAll();const idx=questions.findIndex(q=>q.id===qid);openQuestion(idx);toast('Eliminado');};
+window.deleteNestedReply=async function(qid,ri,nri){replies[qid][ri].replies.splice(nri,1);await saveAll();const idx=questions.findIndex(q=>q.id===qid);openQuestion(idx);toast('Eliminado');};
+
+// ══════════════════════════════════════════════════════
+// CELEBRATION
+// ══════════════════════════════════════════════════════
+function showCelebration(emoji,title,msg){
+  document.getElementById('cel-emoji').textContent=emoji;
+  document.getElementById('cel-title').textContent=title;
+  document.getElementById('cel-msg').textContent=msg;
+  document.getElementById('celebration').classList.add('show');
+}
+window.closeCelebration=function(){document.getElementById('celebration').classList.remove('show');};
+
+// ══════════════════════════════════════════════════════
+// STUDENT SECTION
+// ══════════════════════════════════════════════════════
+function renderStudentSection(){if(!currentStudent)renderStudentLogin();else{renderStudentDashboard();}}
+function renderStudentLogin(){
+  document.getElementById('student-login-area').style.display='block';
+  document.getElementById('student-dashboard').style.display='none';
+  const saved=localStorage.getItem('foro-student');
+  const pf=saved?JSON.parse(saved):null;
+  document.getElementById('student-login-area').innerHTML=`
+    <div class="login-wrap"><div class="login-box fade-up">
+      <div class="licon"><i class="ti ti-user-circle"></i></div>
+      <h2>Acceso Alumno</h2>
+      <p>Ingresa tu matrícula y nombre para ver tus calificaciones y asistencia en tiempo real.</p>
+      <div class="form-group"><label>Matrícula</label><input type="text" id="stu-mat" placeholder="Tu número de matrícula" value="${pf?pf.mat:''}"></div>
+      <div class="form-group"><label>Nombre</label>
+        <select id="stu-name">
+          <option value="">— Selecciona tu nombre —</option>
+          ${ROSTER.map(r=>`<option value="${r.mat}" ${pf&&pf.mat===r.mat?'selected':''}>${r.name}</option>`).join('')}
+        </select></div>
+      <label class="checkbox-row"><input type="checkbox" id="stu-remember" ${pf?'checked':''}> Guardar inicio de sesión</label>
+      <button class="btn btn-primary btn-full" style="margin-top:1.25rem;" onclick="loginStudent()"><i class="ti ti-login"></i> Entrar</button>
+    </div></div>`;
+}
+window.loginStudent=function(){
+  const mat=document.getElementById('stu-mat').value.trim();
+  const sel=document.getElementById('stu-name').value;
+  const remember=document.getElementById('stu-remember').checked;
+  const student=ROSTER.find(r=>r.mat===mat&&r.mat===sel);
+  if(!student){toast('Matrícula o nombre incorrecto');return;}
+  currentStudent=student;viewingParcial=config.activePeriod;
+  if(remember)localStorage.setItem('foro-student',JSON.stringify(student));
+  else localStorage.removeItem('foro-student');
+  document.getElementById('role-bar-student').style.display='flex';
+  document.getElementById('student-bar-name').textContent=`${firstNames(student.name)} · ${student.mat}`;
+  // Saludo por hora
+  const hr=new Date().getHours();
+  const saludo=hr<12?'¡Buenos días':hr<19?'¡Buenas tardes':'¡Buenas noches';
+  const fn2=firstNames(student.name);
+  showCelebration('🌸',`${saludo}, ${fn2}!`,`Bienvenida a tu espacio de aprendizaje, futura pedagoga. Aquí encontrarás tus calificaciones, asistencia y los foros de debate de tu grupo. 💜`);
+  renderStudentDashboard();
+};
+window.logoutStudent=function(){
+  currentStudent=null;viewingParcial=null;localStorage.removeItem('foro-student');
+  document.getElementById('role-bar-student').style.display='none';renderStudentLogin();
+};
+window.setViewingParcial=function(pkey){viewingParcial=pkey;renderStudentDashboard();};
+
+function renderStudentDashboard(){
+  document.getElementById('student-login-area').style.display='none';
+  const dash=document.getElementById('student-dashboard');dash.style.display='block';
+  const mat=currentStudent.mat;const fn=firstNames(currentStudent.name);
+  if(!viewingParcial)viewingParcial=config.activePeriod;
+  const vp=viewingParcial;
+  const fg=calcFinalGrade(mat,vp);
+  const phrase=getPhrase(fg||0);
+  const {faltas,justificantes,presentes,total}=calcFaltas(mat,vp);
+  const sinDerecho=faltas>=MAX_FALTAS;
+
+  // ── Verificar si el docente ya configuró el curso ──
+  const configured=config.periods&&(config.periods.p1?.weeks||config.periods.p2?.weeks);
+
+  // ── Attend message ──
+  let attendMsgHtml='';
+  if(total>0){
+    if(sinDerecho) attendMsgHtml=`<div class="motivational-attend attend-blocked"><i class="ti ti-ban" style="font-size:18px;vertical-align:-3px;margin-right:8px;"></i><strong>Sin derecho a examen.</strong> Has acumulado ${faltas} falta${faltas!==1?'s':''} no justificadas. Habla con tu docente a la brevedad para encontrar una solución. 💜</div>`;
+    else if(faltas===0&&justificantes===0) attendMsgHtml=`<div class="motivational-attend attend-perfect"><i class="ti ti-star-filled" style="font-size:18px;vertical-align:-3px;margin-right:8px;"></i><strong>¡Asistencia perfecta!</strong> 🌟 Una futura maestra comprometida con su formación. ¡Así se construye una gran pedagoga, ${fn}!</div>`;
+    else if(faltas===0&&justificantes>0) attendMsgHtml=`<div class="motivational-attend attend-good"><i class="ti ti-circle-check" style="font-size:18px;vertical-align:-3px;margin-right:8px;"></i><strong>Muy bien.</strong> Sin faltas injustificadas. ${justificantes} justificante${justificantes!==1?'s':''}. ¡Sigue siendo responsable!</div>`;
+    else if(faltas===1) attendMsgHtml=`<div class="motivational-attend attend-warn"><i class="ti ti-alert-triangle" style="font-size:18px;vertical-align:-3px;margin-right:8px;"></i><strong>1 falta registrada.</strong> Aún estás a tiempo. ¡Cuida tu asistencia, ${fn}!</div>`;
+    else attendMsgHtml=`<div class="motivational-attend attend-danger"><i class="ti ti-alert-circle" style="font-size:18px;vertical-align:-3px;margin-right:8px;"></i><strong>¡Atención! ${faltas} faltas.</strong> ${MAX_FALTAS-faltas===1?'Una falta más':'Pocas faltas'} y pierdes el derecho a examen. ¡Asiste puntualmente!</div>`;
+  }
+
+  // ── Asistencia ──
+  const sess=getSessions(vp);
+  const attendDetailHTML=sess.length?`<div class="card fade-up">
+    <p class="admin-panel-title"><i class="ti ti-calendar-check"></i> Registro de asistencia · ${PERIODS.find(p=>p.key===vp)?.short}</p>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+      ${sess.map(s=>{
+        const v=(attendance[vp]||{})[s.id]?.[mat]||'N';
+        const pillCls=v==='P'?'pill-p':v==='F'?'pill-f':v==='J'?'pill-j':'pill-n';
+        const pillLabel=v==='P'?'✓ Presente':v==='F'?'✗ Falta':v==='J'?'J Justificante':'—';
+        return`<div style="text-align:center;min-width:80px;"><p style="font-size:11px;color:var(--text3);margin-bottom:5px;font-weight:500;">${esc(s.label)}</p><span class="attend-pill ${pillCls}">${pillLabel}</span></div>`;
+      }).join('')}
+    </div>
+    <div style="display:flex;gap:12px;margin-top:1rem;flex-wrap:wrap;">
+      <span style="font-size:13px;color:var(--purple-text);font-weight:600;"><i class="ti ti-circle-check"></i> ${presentes} presente${presentes!==1?'s':''}</span>
+      <span style="font-size:13px;color:var(--red-text);font-weight:600;"><i class="ti ti-x"></i> ${faltas} falta${faltas!==1?'s':''}</span>
+      <span style="font-size:13px;color:var(--amber-text);font-weight:600;"><i class="ti ti-file-check"></i> ${justificantes} justificante${justificantes!==1?'s':''}</span>
+    </div>
+  </div>`:'';
+
+  // ── Stepper ──
+  const periodOrder=['p1','p2','pf'];
+  const stepperHTML=`<div class="stepper">${PERIODS.map(p=>{
+    const curIdx=periodOrder.indexOf(config.activePeriod);
+    const thisIdx=periodOrder.indexOf(p.key);
+    const isDone=thisIdx<curIdx;
+    const isCurrent=p.key===config.activePeriod;
+    const pg=calcFinalGrade(mat,p.key);
+    return`<div class="step ${isCurrent?'current':isDone?'done':''}">${p.short}<div class="step-label">${pg!==null?pg.toFixed(1):isCurrent?'En curso':'—'}</div></div>`;
+  }).join('')}</div>`;
+
+  // ── Parcial tabs ──
+  const parcialTabsHTML=`<div class="parcial-tabs">${PERIODS.map(p=>{
+    const isActive=p.key===vp;const isCurrent=p.key===config.activePeriod;
+    return`<button class="parcial-tab ${isActive?(isCurrent?'active-current':'active'):''}" onclick="setViewingParcial('${p.key}')">${p.short}${isCurrent?' <span style="font-size:10px;opacity:0.8;">· Actual</span>':''}</button>`;
+  }).join('')}</div>`;
+
+  // ── Calificaciones (solo si docente configuró el curso) ──
+  let gradesSection='';
+  if(!configured){
+    gradesSection=`<div class="card fade-up" style="text-align:center;padding:2rem;">
+      <i class="ti ti-clock" style="font-size:36px;color:var(--text3);display:block;margin-bottom:12px;"></i>
+      <p style="font-size:15px;font-weight:600;color:var(--text2);">Las calificaciones aún no están disponibles</p>
+      <p style="font-size:13px;color:var(--text3);margin-top:6px;">Tu docente las publicará cuando configure el curso. ¡Sigue al pendiente! 🌸</p>
+    </div>`;
+  } else {
+    // ── Rúbricas ──
+    const criteriaToShow=getActiveCriteria(vp);
+
+    const criteriaHTML=criteriaToShow.map(c=>{
+      const g=calcCriteriaGrade(mat,c.key,c.freq,vp);
+      const pct=g!==null?Math.min(100,(g/10)*100):0;
+      let weekDetail='';
+      if(c.freq==='semana'){
+        const cg=grades[mat]?.[vp]?.[c.key]||{};
+        const sess2=getSessions(vp);
+        if(sess2.length){
+          weekDetail=`<div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:6px;">${sess2.map(s=>{
+            const v=parseFloat(cg[s.id]);
+            return`<span style="font-size:11px;padding:2px 7px;border-radius:10px;background:${isNaN(v)?'var(--surface2)':'var(--accent-bg)'};color:${isNaN(v)?'var(--text3)':'var(--accent-text)'};">${esc(s.label)}: ${isNaN(v)?'—':v.toFixed(1)}</span>`;
+          }).join('')}</div>`;
+        }
+      }
+      return`<div class="criteria-row">
+        <div style="flex:1;">
+          <div style="font-size:14px;font-weight:600;"><i class="ti ${c.icon||'ti-star'}" style="font-size:14px;vertical-align:-2px;margin-right:6px;color:var(--accent);"></i>${c.label}<span style="font-size:11px;color:var(--text3);margin-left:6px;">${Math.round(c.weight*100)}%</span></div>
+          <div style="font-size:12px;color:var(--text2);margin-top:2px;">${c.freq==='semana'?'Calificación por sesión':'Una vez por parcial'}</div>
+          ${weekDetail}
+          <div class="progress-bar-wrap"><div class="progress-bar" style="width:${pct}%;background:${barColor(g)};"></div></div>
+        </div>
+        <div class="criteria-grade ${gradeColor(g)}">${g!==null?g.toFixed(1):'—'}</div>
+      </div>`;
+    }).join('');
+
+    const p1g=calcFinalGrade(mat,'p1');const p2g=calcFinalGrade(mat,'p2');const pfg=calcFinalGrade(mat,'pf');const globalGrade=calcGlobalGrade(mat);
+    gradesSection=`
+      ${stepperHTML}
+      <div class="grade-overview fade-up">
+        <div class="grade-stat">
+          <div class="value" style="color:${barColor(fg)}">${fg!==null?fg.toFixed(1):'—'}</div>
+          <div class="label">${PERIODS.find(p=>p.key===vp)?.short||'Parcial'}</div>
+          <div class="sub">Promedio ponderado</div>
+        </div>
+        <div class="grade-stat">
+          <div class="value" style="font-size:${sinDerecho?'16px':'34px'};color:${sinDerecho?'var(--red)':'var(--text)'};margin-top:${sinDerecho?'8px':'0'}">${sinDerecho?'Sin derecho<br>a examen':`${presentes}/${total}`}</div>
+          <div class="label">Asistencias</div>
+          <div class="sub">${faltas} falta${faltas!==1?'s':''} · ${justificantes} just.</div>
+        </div>
+        ${p1g!==null||p2g!==null||pfg!==null?`<div class="grade-stat"><div class="value" style="color:${barColor(globalGrade)}">${globalGrade!==null?globalGrade.toFixed(1):'—'}</div><div class="label">Promedio global</div><div class="sub">Parciales completados</div></div>`
+        :`<div class="grade-stat"><div class="value" style="font-size:20px;color:var(--accent);margin-top:8px;">${fn}</div><div class="label">Alumna</div><div class="sub">${mat}</div></div>`}
+      </div>
+      ${parcialTabsHTML}
+      <div class="card fade-up">
+        <p class="admin-panel-title"><i class="ti ti-chart-bar"></i> Calificaciones · ${PERIODS.find(p=>p.key===vp)?.label}</p>
+        ${criteriaHTML}
+      </div>
+      ${attendDetailHTML}`;
+  }
+
+  // ── Sub-tabs del dashboard (Inicio / Foro / EVA) ──
+  const studentSubTabsHTML=`<div style="display:flex;gap:4px;margin-bottom:1.5rem;background:rgba(194,100,138,0.08);padding:4px;border-radius:22px;border:1px solid var(--border);">
+    <button class="tab ${currentStudentTab==='home'?'active':''}" style="flex:1;" onclick="setStudentTab('home')"><i class="ti ti-layout-dashboard"></i> Mi progreso</button>
+    <button class="tab ${currentStudentTab==='forum'?'active':''}" style="flex:1;" onclick="setStudentTab('forum')"><i class="ti ti-message-circle"></i> Foro</button>
+    <button class="tab ${currentStudentTab==='eva'?'active':''}" style="flex:1;" onclick="setStudentTab('eva')"><i class="ti ti-device-laptop"></i> EVA</button>
+  </div>`;
+
+  // ── Sección EVA ──
+  let evaSectionHTML='';
+  if(currentStudentTab==='eva'){
+    evaSectionHTML=`
+      <div class="card fade-up" style="text-align:center;padding:1.5rem;">
+        <div style="width:60px;height:60px;background:linear-gradient(135deg,var(--accent),var(--purple));border-radius:18px;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;box-shadow:var(--shadow);">
+          <i class="ti ti-device-laptop" style="font-size:28px;color:#fff;"></i>
+        </div>
+        <h3 style="font-family:var(--font-serif);font-size:22px;color:var(--text);margin-bottom:6px;">EVA Pedagogía</h3>
+        <p style="font-size:13px;color:var(--text2);margin-bottom:1.5rem;line-height:1.6;">Entorno Virtual de Aprendizaje · Aquí encontrarás tus materiales, actividades y recursos del curso. ¡Accede directamente desde aquí, futura pedagoga! 🌸</p>
+        <a href="https://cursos-5qi.pages.dev/" target="_blank" rel="noopener noreferrer"
+          style="display:inline-flex;align-items:center;gap:8px;padding:12px 28px;
+            background:linear-gradient(135deg,var(--accent),var(--purple));
+            color:#fff;border-radius:var(--radius-sm);font-weight:700;font-size:15px;
+            text-decoration:none;box-shadow:0 4px 14px rgba(194,100,138,0.35);
+            transition:all 0.2s;font-family:var(--font);"
+          onmouseover="this.style.opacity='0.88'"
+          onmouseout="this.style.opacity='1'">
+          <i class="ti ti-external-link" style="font-size:18px;"></i> Entrar a EVA
+        </a>
+        <p style="font-size:11px;color:var(--text3);margin-top:1.25rem;font-weight:600;">Se abre en una nueva pestaña · cursos-5qi.pages.dev</p>
+      </div>
+      <div class="card fade-up" style="background:linear-gradient(135deg,rgba(194,100,138,0.06),rgba(155,124,196,0.06));border-color:var(--border);">
+        <p style="font-size:13px;color:var(--text2);line-height:1.65;font-weight:500;">
+          <i class="ti ti-info-circle" style="color:var(--accent);vertical-align:-2px;margin-right:6px;"></i>
+          En el EVA encontrarás lecturas, videos, actividades y todo el material de tu curso de Pedagogía. Recuerda que tu participación en el foro y las demás actividades también cuentan en tu calificación. ¡Mucho éxito, ${fn}! 💜
+        </p>
+      </div>`;
+  }
+
+  // ── Sección foro ──
+  let forumSectionHTML='';
+  if(currentStudentTab==='forum'){
+    const pqs=questions.filter(q=>q.period===config.activePeriod||!q.period);
+    const ap2=PERIODS.find(p=>p.key===config.activePeriod);
+    forumSectionHTML=`<div id="student-forum-wrap">
+      <div id="student-questions-list">
+        ${!pqs.length?'<div class="empty-state"><i class="ti ti-message-off"></i><p>Aún no hay preguntas publicadas en este parcial.</p></div>'
+        :`<p style="font-size:12px;font-weight:700;color:var(--text2);margin-bottom:1rem;text-transform:uppercase;letter-spacing:0.06em;">${ap2?.label||''} · ${pqs.length} pregunta${pqs.length!==1?'s':''}</p>`+
+        pqs.map(q=>{
+          const i=questions.indexOf(q);
+          const st=getStatus(q);const rc=countReplies(q.id);
+          const sb=st==='closed'?`<span class="badge badge-red"><i class="ti ti-lock"></i> Cerrado</span>`:
+            st==='soon'?`<span class="badge badge-amber"><i class="ti ti-clock"></i> ${timeLeft(q.closesAt)}</span>`:
+            q.closesAt?`<span class="badge badge-blue"><i class="ti ti-clock"></i> ${timeLeft(q.closesAt)}</span>`:
+            `<span class="badge badge-blue"><i class="ti ti-circle-check"></i> Abierto</span>`;
+          return`<div class="card card-clickable question-card fade-up" onclick="openStudentQuestion(${i})">
+            <h3>${esc(q.title)}</h3>
+            ${q.body?`<p class="preview">${esc(q.body)}</p>`:''}
+            <div class="card-meta">${sb}<span class="badge badge-gray"><i class="ti ti-message"></i> ${rc}</span>${q.week?`<span class="week-tag">Ses ${q.week}</span>`:''}</div>
+          </div>`;
+        }).join('')}
+      </div>
+      <div id="student-question-detail" style="display:none;"></div>
+    </div>`;
+  }
+
+  dash.innerHTML=`
+    <div class="motivational fade-up"><p>"${phrase}"</p><p class="mauthor">— Para ti, futura pedagoga ${fn} 🌸</p></div>
+    ${attendMsgHtml}
+    ${studentSubTabsHTML}
+    ${currentStudentTab==='home'?gradesSection:currentStudentTab==='eva'?evaSectionHTML:forumSectionHTML}
+    <p style="font-size:12px;color:var(--text3);text-align:center;margin-top:0.5rem;">Todo se actualiza en tiempo real. 💜</p>`;
+}
+
+
+// ══════════════════════════════════════════════════════
+// TEACHER SECTION
+// ══════════════════════════════════════════════════════
+function renderTeacherSection(){if(!isTeacher)renderTeacherLogin();else renderTeacherPanel();}
+function renderTeacherLogin(){
+  document.getElementById('teacher-login-area').style.display='block';
+  document.getElementById('teacher-panel').style.display='none';
+  document.getElementById('teacher-login-area').innerHTML=`
+    <div class="login-wrap"><div class="login-box fade-up">
+      <div class="licon"><i class="ti ti-shield-check"></i></div>
+      <h2>Acceso Docente</h2>
+      <p>Panel exclusivo del docente. Gestiona calificaciones, asistencia y foro.</p>
+      <div class="form-group"><label>Contraseña</label><input type="password" id="teacher-pwd" placeholder="Contraseña" onkeydown="if(event.key==='Enter')checkPass()"></div>
+      <button class="btn btn-primary btn-full" onclick="checkPass()"><i class="ti ti-login"></i> Entrar</button>
+
+    </div></div>`;
+}
+window.checkPass=function(){
+  if(document.getElementById('teacher-pwd').value===TEACHER_PASS){
+    isTeacher=true;document.getElementById('role-bar-teacher').style.display='flex';
+    renderTeacherSection();toast('¡Bienvenido/a! 🌸');
+  } else toast('Contraseña incorrecta');
+};
+window.logoutTeacher=function(){isTeacher=false;document.getElementById('role-bar-teacher').style.display='none';showTab('forum');};
+
+// ── Cambio de alumno: autoguarda y re-renderiza ──
+window.setTeacherStudentIdx=async function(i){
+  if(i===teacherStudentIdx)return;
+  await flushCurrentStudent(); // autoguarda inputs actuales
+  teacherStudentIdx=i;
+  renderTeacherPanel();
+};
+
+
+window.toggleTeacherQuestion=function(qid){
+  window._teacherExpandedQ=(window._teacherExpandedQ===qid)?null:qid;
+  renderTeacherPanel();
+};
+
+window.setTeacherTab=async function(t){
+  if(t===teacherTab)return;
+  await flushCurrentStudent(); // autoguarda al cambiar sección
+  teacherTab=t;
+  renderTeacherPanel();
+};
+
+function renderTeacherPanel(){
+  document.getElementById('teacher-login-area').style.display='none';
+  const panel=document.getElementById('teacher-panel');panel.style.display='block';
+  const ap=config.activePeriod||'p1';
+  const student=ROSTER[teacherStudentIdx];
+  const sess=getSessions(ap);
+
+  const subTabs=[
+    {key:'student',label:'Alumna',icon:'ti-user-heart'},
+    {key:'forum',  label:'Foro',  icon:'ti-message-circle'},
+    {key:'config', label:'Config',icon:'ti-settings-filled'}
+  ];
+  const subNavHTML=`<div style="display:flex;gap:4px;margin-bottom:1.5rem;background:var(--surface2);padding:4px;border-radius:var(--radius);flex-wrap:wrap;">
+    ${subTabs.map(t=>`<button style="flex:1;" class="tab ${teacherTab===t.key?'active':''}" onclick="setTeacherTab('${t.key}')"><i class="ti ${t.icon}"></i> ${t.label}</button>`).join('')}
+  </div>`;
+
+  let content='';
+
+  // ══════════════════════════════════════════════════
+  // TAB: ALUMNO — Calificaciones + Asistencia unificado
+  // ══════════════════════════════════════════════════
+  if(teacherTab==='student'){
+    const dots=ROSTER.map((r,i)=>`<div class="student-dot ${i===teacherStudentIdx?'active':''}" onclick="setTeacherStudentIdx(${i})" title="${firstNames(r.name)}"></div>`).join('');
+    const fg=calcFinalGrade(student.mat,ap);
+    const {faltas,justificantes,presentes}=calcFaltas(student.mat,ap);
+    const isBlocked=faltas>=MAX_FALTAS;
+
+    // ── CALIFICACIONES ──
+    // Usar IDs únicos por input para que flushCurrentStudent() los lea
+    const gradeInputsHTML=getActiveCriteria(ap).map(c=>{
+      if(c.freq==='semana'){
+        if(!sess.length) return`<div style="margin-bottom:1rem;">
+          <p style="font-size:12px;font-weight:600;color:var(--text2);margin-bottom:6px;"><i class="ti ${c.icon}" style="font-size:12px;vertical-align:-1px;margin-right:4px;"></i>${c.label} (${Math.round(c.weight*100)}%)</p>
+          <p style="font-size:13px;color:var(--text3);">Agrega sesiones abajo para calificar.</p>
+        </div>`;
+        const rows=sess.map(s=>{
+          const saved=grades[student.mat]?.[ap]?.[c.key]?.[s.id];
+          const val=(saved!==null&&saved!==undefined)?saved:'';
+          return`<div class="grade-input-wrap">
+            <label title="${esc(s.label)}">${esc(s.label)}</label>
+            <input id="gi_${c.key}_${s.id}" type="number" min="0" max="10" step="0.5" value="${val}" placeholder="—">
+          </div>`;
+        }).join('');
+        return`<div style="margin-bottom:1rem;">
+          <p style="font-size:12px;font-weight:600;color:var(--text2);margin-bottom:8px;"><i class="ti ${c.icon}" style="font-size:12px;vertical-align:-1px;margin-right:4px;"></i>${c.label} (${Math.round(c.weight*100)}%) <span style="font-weight:400;color:var(--text3);">— promedio: ${calcCriteriaGrade(student.mat,c.key,c.freq,ap)!==null?calcCriteriaGrade(student.mat,c.key,c.freq,ap).toFixed(1):'—'}</span></p>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;">${rows}</div>
+        </div>`;
+      } else {
+        const saved=grades[student.mat]?.[ap]?.[c.key];
+        const val=(saved!==null&&saved!==undefined)?saved:'';
+        return`<div style="margin-bottom:1rem;">
+          <p style="font-size:12px;font-weight:600;color:var(--text2);margin-bottom:6px;"><i class="ti ${c.icon}" style="font-size:12px;vertical-align:-1px;margin-right:4px;"></i>${c.label} (${Math.round(c.weight*100)}%)</p>
+          <input id="gi_${c.key}" type="number" min="0" max="10" step="0.5" value="${val}" placeholder="0 – 10" style="max-width:180px;">
+        </div>`;
+      }
+    }).join('');
+
+    // ── ASISTENCIA ──
+    // Usamos radio buttons con name únicos para que flushCurrentStudent() los lea
+    const attendHTML=sess.length?sess.map(s=>{
+      const cur=(attendance[ap]||{})[s.id]?.[student.mat]||'';
+      return`<div style="display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);">
+        <span style="font-size:14px;font-weight:500;flex:1;">${esc(s.label)}</span>
+        <div class="attend-btn-group" style="gap:8px;">
+          <label style="cursor:pointer;">
+            <input type="radio" name="att_${s.id}" value="P" ${cur==='P'?'checked':''} style="display:none;">
+            <span class="attend-btn presente ${cur==='P'?'sel':''}" onclick="this.previousElementSibling.checked=true;updateAttendBtn('${s.id}','P')">✓ Presente</span>
+          </label>
+          <label style="cursor:pointer;">
+            <input type="radio" name="att_${s.id}" value="F" ${cur==='F'?'checked':''} style="display:none;">
+            <span class="attend-btn falta ${cur==='F'?'sel':''}" onclick="this.previousElementSibling.checked=true;updateAttendBtn('${s.id}','F')">✗ Falta</span>
+          </label>
+          <label style="cursor:pointer;">
+            <input type="radio" name="att_${s.id}" value="J" ${cur==='J'?'checked':''} style="display:none;">
+            <span class="attend-btn justificante ${cur==='J'?'sel':''}" onclick="this.previousElementSibling.checked=true;updateAttendBtn('${s.id}','J')">J Justificante</span>
+          </label>
+        </div>
+      </div>`;
+    }).join('')
+    :`<p style="font-size:14px;color:var(--text2);">Aún no hay sesiones. Agrégalas debajo.</p>`;
+
+    // ── Nueva sesión ──
+    const newSessHTML=`<div style="display:flex;gap:8px;align-items:flex-end;flex-wrap:wrap;">
+      <div style="flex:1;min-width:180px;" class="form-group" style="margin:0;">
+        <label>Nombre de la sesión (se auto-genera si lo dejas vacío)</label>
+        <input type="text" id="sess-label" placeholder="Ej: Lunes 12 mayo · Clase 1">
+      </div>
+      <button class="btn btn-primary btn-sm" style="margin-bottom:1rem;" onclick="addSession()"><i class="ti ti-plus"></i> Agregar sesión</button>
+    </div>
+    ${sess.length?`<div style="margin-top:4px;">${sess.map((s,si)=>`
+      <div style="display:flex;align-items:center;justify-content:space-between;font-size:13px;padding:5px 0;border-bottom:1px solid var(--border);">
+        <span>${esc(s.label)}</span>
+        <button class="btn btn-danger btn-sm" onclick="deleteSession('${s.id}',${si})"><i class="ti ti-trash"></i></button>
+      </div>`).join('')}</div>`:''}`;
+
+    // Resumen grupo
+    const summaryHTML=`<div style="overflow-x:auto;margin-top:1rem;">
+      <table style="width:100%;border-collapse:collapse;font-size:13px;">
+        <thead><tr style="background:var(--surface2);">
+          <th style="padding:8px 10px;text-align:left;border-bottom:1px solid var(--border);">Futura Pedagoga</th>
+          <th style="padding:8px 10px;text-align:center;border-bottom:1px solid var(--border);">1er P</th>
+          <th style="padding:8px 10px;text-align:center;border-bottom:1px solid var(--border);">2do P</th>
+          <th style="padding:8px 10px;text-align:center;border-bottom:1px solid var(--border);">Ev. Final</th>
+          <th style="padding:8px 10px;text-align:center;border-bottom:1px solid var(--border);">Global</th>
+          <th style="padding:8px 10px;text-align:center;border-bottom:1px solid var(--border);">Faltas</th>
+        </tr></thead>
+        <tbody>${ROSTER.map((s,i)=>{
+          const p1g=calcFinalGrade(s.mat,'p1');const p2g=calcFinalGrade(s.mat,'p2');const pfg2=calcFinalGrade(s.mat,'pf');const glob=calcGlobalGrade(s.mat);
+          const {faltas:f}=calcFaltas(s.mat,ap);
+          const isB=f>=MAX_FALTAS;
+          const cell=v=>v!==null?`<span style="font-weight:700;color:${barColor(v)};">${v.toFixed(1)}</span>`:`<span style="color:var(--text3);">—</span>`;
+          return`<tr style="border-bottom:1px solid var(--border);cursor:pointer;${i===teacherStudentIdx?'background:var(--accent-bg);':''}" onclick="setTeacherStudentIdx(${i})">
+            <td style="padding:8px 10px;font-weight:${i===teacherStudentIdx?'600':'400'};">${firstNames(s.name)}</td>
+            <td style="padding:8px 10px;text-align:center;">${cell(p1g)}</td>
+            <td style="padding:8px 10px;text-align:center;">${cell(p2g)}</td>
+            <td style="padding:8px 10px;text-align:center;">${cell(pfg2)}</td>
+            <td style="padding:8px 10px;text-align:center;">${cell(glob)}</td>
+            <td style="padding:8px 10px;text-align:center;color:${isB?'var(--red)':'var(--text)'};font-weight:600;">${f}${isB?' 🚫':''}</td>
+          </tr>`;
+        }).join('')}</tbody>
+      </table>
+    </div>`;
+
+    content=`
+      <!-- NAVEGADOR DE ALUMNO -->
+      <div class="student-nav">
+        <button class="btn" onclick="setTeacherStudentIdx(${Math.max(0,teacherStudentIdx-1)})" ${teacherStudentIdx===0?'disabled':''}><i class="ti ti-chevron-left"></i></button>
+        <div class="student-nav-info">
+          <div class="sname">${firstNames(student.name)}</div>
+          <div class="smat">${student.mat} &nbsp;·&nbsp; ${teacherStudentIdx+1} de ${ROSTER.length}</div>
+          <div style="font-size:12px;margin-top:4px;display:flex;gap:8px;justify-content:center;">
+            <span style="color:${barColor(fg)};font-weight:700;">Cal: ${fg!==null?fg.toFixed(1):'—'}</span>
+            <span style="color:var(--purple-text);font-weight:600;">${presentes} pres.</span>
+            <span style="color:${isBlocked?'var(--red)':'var(--red-text)'};font-weight:700;">${faltas} falta${faltas!==1?'s':''}${isBlocked?' 🚫':''}</span>
+            ${justificantes>0?`<span style="color:var(--amber-text);font-weight:600;">${justificantes} just.</span>`:''}
+          </div>
+          <div class="student-nav-dots" style="margin-top:8px;">${dots}</div>
+        </div>
+        <button class="btn" onclick="setTeacherStudentIdx(${Math.min(ROSTER.length-1,teacherStudentIdx+1)})" ${teacherStudentIdx===ROSTER.length-1?'disabled':''}><i class="ti ti-chevron-right"></i></button>
+      </div>
+      <p style="font-size:12px;color:var(--text2);margin-bottom:1.25rem;text-align:center;"><i class="ti ti-device-floppy" style="vertical-align:-2px;"></i> Los cambios se guardan automáticamente al cambiar de alumno.</p>
+
+      <!-- CALIFICACIONES -->
+      <div class="admin-panel fade-up">
+        <p class="admin-panel-title"><i class="ti ti-star"></i> Calificaciones · ${PERIODS.find(p=>p.key===ap)?.label}</p>
+        ${gradeInputsHTML}
+      </div>
+
+      <!-- ASISTENCIA -->
+      <div class="admin-panel fade-up">
+        <p class="admin-panel-title"><i class="ti ti-calendar-check"></i> Asistencia por sesión</p>
+        ${attendHTML}
+      </div>
+
+      <!-- AGREGAR SESION -->
+      <div class="admin-panel fade-up">
+        <p class="admin-panel-title"><i class="ti ti-plus"></i> Gestionar sesiones · ${PERIODS.find(p=>p.key===ap)?.short}</p>
+        ${newSessHTML}
+      </div>
+
+      <!-- RESUMEN GRUPO -->
+      <div class="admin-panel fade-up">
+        <p class="admin-panel-title"><i class="ti ti-trophy"></i> Resumen del grupo — clic para ir a alumna</p>
+        ${summaryHTML}
+      </div>`;
+  }
+
+  // ══════════════════════════════════════════════════
+  // TAB: FORO
+  // ══════════════════════════════════════════════════
+  else if(teacherTab==='forum'){
+    const allWeeks=getSessions(ap).map((s,i)=>({...s,num:i+1}));
+
+    // Renderizar respuestas de una pregunta expandida
+    function teacherRepliesHTML(q){
+      const qReplies=replies[q.id]||[];
+      if(!qReplies.length)return`<p style="font-size:13px;color:var(--text3);padding:8px 0;font-style:italic;">Sin respuestas aún.</p>`;
+      return qReplies.map((r,ri)=>{
+        const nested=(r.replies||[]).map((nr,nri)=>`
+          <div style="margin-left:1rem;padding:8px 12px;background:rgba(194,100,138,0.05);border-left:3px solid var(--border);border-radius:0 8px 8px 0;margin-top:6px;">
+            <p style="font-size:11px;font-weight:700;color:var(--accent);margin-bottom:3px;"><i class="ti ti-corner-down-right" style="font-size:11px;"></i> ${esc(nr.author)}</p>
+            <p style="font-size:13px;color:var(--text);line-height:1.55;">${esc(nr.text)}</p>
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-top:4px;">
+              <span style="font-size:10px;color:var(--text3);">${nr.time}</span>
+              <button class="btn btn-danger btn-sm" style="padding:3px 8px;font-size:11px;" onclick="deleteNestedReply('${q.id}',${ri},${nri})"><i class="ti ti-trash"></i></button>
+            </div>
+          </div>`).join('');
+        return`<div style="padding:10px 0;border-bottom:1px dashed var(--border);">
+          <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:10px;">
+            <div style="flex:1;">
+              <p style="font-size:12px;font-weight:700;color:var(--accent);margin-bottom:4px;"><i class="ti ti-user" style="font-size:12px;"></i> ${esc(r.author)}</p>
+              <p style="font-size:14px;color:var(--text);line-height:1.6;">${esc(r.text)}</p>
+              <p style="font-size:10px;color:var(--text3);margin-top:4px;">${r.time}</p>
+            </div>
+            <button class="btn btn-danger btn-sm" style="flex-shrink:0;" onclick="deleteReply('${q.id}',${ri})"><i class="ti ti-trash"></i></button>
+          </div>
+          ${nested}
+        </div>`;
+      }).join('');
+    }
+
+    const teacherExpandedQ=window._teacherExpandedQ||null;
+
+    content=`
+      <div class="admin-panel fade-up">
+        <p class="admin-panel-title"><i class="ti ti-plus"></i> Nueva pregunta de debate</p>
+        <div class="form-group"><label>Pregunta o tema</label><input type="text" id="new-q-title" placeholder="Ej: ¿La IA reemplazará a los docentes?"></div>
+        <div class="form-group"><label>Contexto o instrucciones (opcional)</label><textarea id="new-q-body" rows="2" placeholder="Agrega contexto..."></textarea></div>
+        <div class="three-col">
+          <div class="form-group" style="margin:0;"><label>Parcial</label>
+            <select id="new-q-period">${PERIODS.map(p=>`<option value="${p.key}" ${p.key===ap?'selected':''}>${p.short}</option>`).join('')}</select></div>
+          <div class="form-group" style="margin:0;"><label>Sesión</label>
+            <select id="new-q-week">${allWeeks.length?allWeeks.map(s=>`<option value="${s.num}">${esc(s.label)}</option>`).join(''):'<option value="1">—</option>'}</select></div>
+          <div class="form-group" style="margin:0;"><label>Cierre automático</label><input type="datetime-local" id="new-q-closes"></div>
+        </div>
+        <button class="btn btn-primary" style="margin-top:1rem;" onclick="addQuestion()"><i class="ti ti-plus"></i> Publicar pregunta</button>
+      </div>
+      <div class="admin-panel fade-up">
+        <p class="admin-panel-title"><i class="ti ti-list"></i> Preguntas y respuestas (${questions.length})</p>
+        ${questions.length?questions.map((q,i)=>{
+          const st=getStatus(q);
+          const rc=countReplies(q.id);
+          const isExpanded=teacherExpandedQ===q.id;
+          const badge=st==='closed'?`<span class="badge badge-red" style="font-size:11px;">Cerrado</span>`:
+            st==='soon'?`<span class="badge badge-amber" style="font-size:11px;">Cierra pronto</span>`:
+            `<span class="badge badge-blue" style="font-size:11px;">Abierto</span>`;
+          const pd=PERIODS.find(p=>p.key===q.period);
+          return`<div style="border-bottom:1px solid var(--border);padding:12px 0;">
+            <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:10px;">
+              <div style="flex:1;">
+                <p style="font-size:14px;font-weight:600;color:var(--text);margin-bottom:5px;">${esc(q.title)}</p>
+                <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;">${badge}
+                  ${pd?`<span class="parcial-badge ${pd.cls}">${pd.short}</span>`:''}
+                  ${q.week?`<span class="week-tag">Ses ${q.week}</span>`:''}
+                  <span style="font-size:12px;color:var(--text2);font-weight:600;">${rc} respuesta${rc!==1?'s':''}</span>
+                </div>
+              </div>
+              <div style="display:flex;gap:6px;flex-shrink:0;flex-wrap:wrap;justify-content:flex-end;">
+                <button class="btn btn-sm ${isExpanded?'btn-primary':''}" onclick="toggleTeacherQuestion('${q.id}')">
+                  <i class="ti ti-${isExpanded?'chevron-up':'message-circle'}"></i> ${isExpanded?'Cerrar':'Ver respuestas'}
+                </button>
+                ${st==='closed'?`<button class="btn btn-sm" onclick="reopenQuestion(${i})"><i class="ti ti-lock-open"></i></button>`:''}
+                <button class="btn btn-danger btn-sm" onclick="deleteQuestion(${i})"><i class="ti ti-trash"></i></button>
+              </div>
+            </div>
+            ${isExpanded?`<div style="margin-top:1rem;padding:1rem;background:var(--surface2);border-radius:var(--radius-sm);border:1px solid var(--border);">
+              <p style="font-size:11px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.75rem;">Respuestas del grupo</p>
+              ${teacherRepliesHTML(q)}
+            </div>`:''}
+          </div>`;
+        }).join(''):'<p style="font-size:14px;color:var(--text2);">Aún no hay preguntas.</p>'}
+      </div>`;
+  }
+
+  // ══════════════════════════════════════════════════
+  // TAB: CONFIGURACIÓN
+  // ══════════════════════════════════════════════════
+  else if(teacherTab==='config'){
+    const p1w=config.periods?.p1?.weeks||8;
+    const p2w=config.periods?.p2?.weeks||8;
+    const pfw=config.periods?.pf?.weeks||0;
+    // Parcial cuyas rúbricas se están editando
+    const editingParcialKey=config._rubricEditKey||ap;
+    const rubricsParcial=(config.rubrics||{})[editingParcialKey]||{};
+    const rubricKeys=Object.keys(rubricsParcial).length>0?Object.keys(rubricsParcial):CRITERIA.map(c=>c.key);
+    const rubricRows=rubricKeys.map(key=>{
+      const r=rubricsParcial[key]||CRITERIA.find(c=>c.key===key)||{label:key,weight:0,freq:'parcial'};
+      return`<div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:8px;align-items:end;margin-bottom:8px;">
+        <div><label style="font-size:11px;color:var(--text2);font-weight:700;display:block;margin-bottom:4px;">Criterio</label>
+          <input type="text" id="rb_label_${key}" value="${esc(r.label||key)}" placeholder="Nombre del criterio"></div>
+        <div><label style="font-size:11px;color:var(--text2);font-weight:700;display:block;margin-bottom:4px;">Peso %</label>
+          <input type="number" id="rb_weight_${key}" min="0" max="100" value="${r.weight!==undefined?Math.round(r.weight*100):Math.round((r.weight||0)*100)}" placeholder="40"></div>
+        <div><label style="font-size:11px;color:var(--text2);font-weight:700;display:block;margin-bottom:4px;">Frecuencia</label>
+          <select id="rb_freq_${key}">
+            <option value="parcial" ${(r.freq||'parcial')==='parcial'?'selected':''}>Por parcial</option>
+            <option value="semana" ${r.freq==='semana'?'selected':''}>Por sesión</option>
+          </select></div>
+        <div><label style="font-size:11px;color:var(--text2);font-weight:700;display:block;margin-bottom:4px;">Ícono</label>
+          <select id="rb_icon_${key}">
+            ${['ti-clipboard-check','ti-message-circle','ti-table','ti-presentation','ti-star','ti-book','ti-pencil','ti-users'].map(ic=>`<option value="${ic}" ${(r.icon||'ti-star')===ic?'selected':''}>${ic.replace('ti-','')}</option>`).join('')}
+          </select></div>
+      </div>`;
+    }).join('');
+
+    content=`
+      <div class="admin-panel fade-up">
+        <p class="admin-panel-title"><i class="ti ti-settings"></i> Configuración general del curso</p>
+        <p style="font-size:12px;color:var(--text3);margin-bottom:1rem;font-weight:600;">⚠️ Mientras no guardes esta configuración, las alumnas verán un mensaje de "calificaciones no disponibles aún".</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:12px;margin-bottom:1rem;">
+          <div class="form-group" style="margin:0;"><label>Parcial activo</label>
+            <select id="cfg-active">${PERIODS.map(p=>`<option value="${p.key}" ${ap===p.key?'selected':''}>${p.label}</option>`).join('')}</select></div>
+          <div class="form-group" style="margin:0;"><label>Semanas · 1er Parcial</label>
+            <input type="number" id="cfg-p1-weeks" min="1" max="30" value="${p1w}" placeholder="8"></div>
+          <div class="form-group" style="margin:0;"><label>Semanas · 2do Parcial</label>
+            <input type="number" id="cfg-p2-weeks" min="1" max="30" value="${p2w}" placeholder="8"></div>
+          <div class="form-group" style="margin:0;"><label>Sesiones · Ev. Final</label>
+            <input type="number" id="cfg-pf-weeks" min="0" max="30" value="${pfw}" placeholder="0"></div>
+        </div>
+        <button class="btn btn-success" onclick="saveConfig()"><i class="ti ti-check"></i> Guardar configuración general</button>
+      </div>
+      <div class="admin-panel fade-up">
+        <p class="admin-panel-title"><i class="ti ti-list-check"></i> Rúbricas de calificación por parcial</p>
+        <p style="font-size:12px;color:var(--text3);margin-bottom:1rem;font-weight:600;">Cada parcial puede tener criterios diferentes. Selecciona el parcial que quieres configurar y guarda sus rúbricas.</p>
+        <div style="display:flex;gap:6px;margin-bottom:1.25rem;flex-wrap:wrap;">
+          ${PERIODS.map(p=>`<button class="parcial-tab ${editingParcialKey===p.key?'active':''}" onclick="setRubricEditKey('${p.key}')">${p.short}</button>`).join('')}
+        </div>
+        <p style="font-size:12px;font-weight:700;color:var(--accent);margin-bottom:0.75rem;">Editando: ${PERIODS.find(p=>p.key===editingParcialKey)?.label||editingParcialKey}</p>
+        ${rubricRows}
+        <div style="display:flex;gap:8px;margin-top:1rem;flex-wrap:wrap;align-items:center;">
+          <button class="btn btn-primary" onclick="saveRubrics()"><i class="ti ti-device-floppy"></i> Guardar rúbricas de este parcial</button>
+          <button class="btn btn-sm" onclick="resetRubrics()"><i class="ti ti-refresh"></i> Restaurar predeterminadas</button>
+          <span id="rubric-sum-msg" style="font-size:12px;color:var(--text2);font-weight:600;"></span>
+        </div>
+      </div>
+      <div class="admin-panel fade-up">
+        <p class="admin-panel-title"><i class="ti ti-lock"></i> Acceso del docente</p>
+        <p style="font-size:13px;color:var(--text2);">Para cambiar la contraseña, edita la variable <code style="background:var(--surface2);padding:2px 6px;border-radius:4px;">TEACHER_PASS</code> en el código HTML y vuelve a subirlo a Cloudflare.</p>
+      </div>
+      <div class="admin-panel fade-up" style="border-color:var(--red);background:var(--red-bg);">
+        <p class="admin-panel-title" style="color:var(--red-text);"><i class="ti ti-alert-triangle"></i> Zona de reinicio</p>
+        <p style="font-size:13px;color:var(--red-text);margin-bottom:1rem;">Borra <strong>todas</strong> las calificaciones, asistencias y sesiones de todos los parciales. Úsalo si necesitas empezar completamente de cero.</p>
+        <button class="btn btn-danger" onclick="hardResetData()"><i class="ti ti-trash"></i> Borrar todos los datos del grupo</button>
+      </div>`;
+  }
+
+  panel.innerHTML=subNavHTML+content;
+}
+
+// ══════════════════════════════════════════════════════
+// UPDATE ATTEND BUTTON VISUALS (inline, sin re-render)
+// ══════════════════════════════════════════════════════
+window.updateAttendBtn=function(sessId,val){
+  // Highlight selected button for this session row
+  document.querySelectorAll(`input[name="att_${sessId}"]`).forEach(inp=>{
+    const span=inp.nextElementSibling;
+    if(span)span.classList.toggle('sel',inp.value===val);
+  });
+};
+
+// ══════════════════════════════════════════════════════
+// SESSION MANAGEMENT
+// ══════════════════════════════════════════════════════
+window.addSession=async function(){
+  const ap=config.activePeriod;
+  if(!sessions[ap])sessions[ap]=[];
+  const n=sessions[ap].length+1;
+  const labelInput=document.getElementById('sess-label');
+  // Auto-generate label if empty
+  const today=new Date().toLocaleDateString('es-MX',{weekday:'short',day:'numeric',month:'short'});
+  const label=labelInput?.value.trim()||`Sesión ${n} · ${today}`;
+  sessions[ap].push({id:'s'+Date.now(),label});
+  if(labelInput)labelInput.value='';
+  await saveAll();renderTeacherPanel();toast(`Sesión "${label}" agregada`);
+};
+window.deleteSession=async function(sessId,si){
+  const ap=config.activePeriod;
+  sessions[ap].splice(si,1);
+  if(attendance[ap]&&attendance[ap][sessId])delete attendance[ap][sessId];
+  // Remove grade entries for this session
+  for(const mat of ROSTER.map(r=>r.mat)){
+    for(const c of CRITERIA.filter(c=>c.freq==='semana')){
+      if(grades[mat]?.[ap]?.[c.key]?.[sessId]!==undefined)delete grades[mat][ap][c.key][sessId];
+    }
+  }
+  await saveAll();renderTeacherPanel();toast('Sesión eliminada');
+};
+
+// ══════════════════════════════════════════════════════
+// FORUM MANAGEMENT
+// ══════════════════════════════════════════════════════
+window.addQuestion=async function(){
+  const title=document.getElementById('new-q-title').value.trim();
+  const body=document.getElementById('new-q-body').value.trim();
+  const closesVal=document.getElementById('new-q-closes').value;
+  const week=document.getElementById('new-q-week').value;
+  const period=document.getElementById('new-q-period').value;
+  if(!title){toast('Escribe la pregunta primero');return;}
+  const q={id:'q'+Date.now(),title,body,date:new Date().toLocaleDateString('es-MX'),week:parseInt(week),period};
+  if(closesVal)q.closesAt=new Date(closesVal).getTime();
+  questions.unshift(q);await saveAll();renderTeacherPanel();toast('¡Pregunta publicada!');
+};
+window.deleteQuestion=async function(idx){
+  const qid=questions[idx].id;questions.splice(idx,1);delete replies[qid];
+  await saveAll();renderTeacherPanel();toast('Pregunta eliminada');
+};
+window.reopenQuestion=async function(idx){
+  delete questions[idx].closesAt;await saveAll();renderTeacherPanel();toast('Reabierta');
+};
+
+// ══════════════════════════════════════════════════════
+// CONFIG
+// ══════════════════════════════════════════════════════
+
+window.hardResetData=async function(){
+  if(!confirm('⚠️ ¿Borrar TODOS los datos del grupo?\n\nEsto eliminará permanentemente:\n- Calificaciones de todos los parciales\n- Asistencias de todas las sesiones\n- Sesiones registradas\n\nEsta acción no se puede deshacer.'))return;
+  if(!confirm('Segunda confirmación: ¿Estás segura? Se borrarán todos los datos.'))return;
+  grades={};attendance={};sessions={};
+  await saveAll();
+  renderTeacherPanel();
+  toast('✓ Todos los datos han sido borrados');
+};
+
+window.saveConfig=async function(){
+  const newActive=document.getElementById('cfg-active').value;
+  const newP1=parseInt(document.getElementById('cfg-p1-weeks').value)||8;
+  const newP2=parseInt(document.getElementById('cfg-p2-weeks').value)||8;
+  const newPf=parseInt(document.getElementById('cfg-pf-weeks').value)||0;
+  // Detectar si cambió algo que justifique limpiar datos
+  const changed=
+    newActive!==config.activePeriod||
+    newP1!==(config.periods?.p1?.weeks||8)||
+    newP2!==(config.periods?.p2?.weeks||8)||
+    newPf!==(config.periods?.pf?.weeks||0);
+  if(changed){
+    const ok=confirm('¿Guardar la nueva configuración?\n\nAtención: esto limpiará todas las calificaciones y asistencias registradas para comenzar de cero con la nueva configuración.');
+    if(!ok)return;
+    grades={};
+    attendance={};
+    sessions={};
+  }
+  config.activePeriod=newActive;
+  config.periods={
+    p1:{weeks:newP1},
+    p2:{weeks:newP2},
+    pf:{weeks:newPf}
+  };
+  await saveAll();updateTopbar();renderTeacherPanel();toast('✓ Configuración guardada. Datos reiniciados.');
+};
+
+window.setRubricEditKey=function(pkey){
+  config._rubricEditKey=pkey;
+  renderTeacherPanel();
+};
+
+window.saveRubrics=async function(){
+  const editKey=config._rubricEditKey||config.activePeriod;
+  const existing=(config.rubrics||{})[editKey]||{};
+  const keys=Object.keys(existing).length>0?Object.keys(existing):CRITERIA.map(c=>c.key);
+  const rubrics={};
+  let totalWeight=0;
+  for(const key of keys){
+    const label=document.getElementById(`rb_label_${key}`)?.value.trim()||key;
+    const weight=parseFloat(document.getElementById(`rb_weight_${key}`)?.value)||0;
+    const freq=document.getElementById(`rb_freq_${key}`)?.value||'parcial';
+    const icon=document.getElementById(`rb_icon_${key}`)?.value||'ti-star';
+    rubrics[key]={label,weight:weight/100,freq,icon};
+    totalWeight+=weight;
+  }
+  const msg=document.getElementById('rubric-sum-msg');
+  if(Math.abs(totalWeight-100)>0.5){
+    if(msg){msg.textContent=`⚠️ La suma es ${totalWeight}%. Debe ser 100%.`;msg.style.color='var(--red-text)';}
+    toast('La suma de pesos debe ser 100%');return;
+  }
+  if(msg){msg.textContent='✓ Suma correcta: 100%';msg.style.color='var(--purple-text)';}
+  if(!config.rubrics)config.rubrics={};
+  config.rubrics[editKey]=rubrics;
+  await saveAll();toast(`Rúbricas del ${PERIODS.find(p=>p.key===editKey)?.short||editKey} guardadas ✓`);renderTeacherPanel();
+};
+
+window.resetRubrics=async function(){
+  const editKey=config._rubricEditKey||config.activePeriod;
+  if(!confirm(`¿Restaurar las rúbricas predeterminadas para ${PERIODS.find(p=>p.key===editKey)?.short||editKey}?`))return;
+  if(!config.rubrics)config.rubrics={};
+  delete config.rubrics[editKey];
+  await saveAll();renderTeacherPanel();toast('Rúbricas restauradas');
+};
+
+// ══════════════════════════════════════════════════════
+// STUDENT FORUM HELPERS
+// ══════════════════════════════════════════════════════
+window.setStudentTab=function(tab){
+  currentStudentTab=tab;
+  renderStudentDashboard();
+};
+
+window.openStudentQuestion=function(idx){
+  const q=questions[idx];
+  const wrap=document.getElementById('student-forum-wrap');
+  if(!wrap)return;
+  document.getElementById('student-questions-list').style.display='none';
+  const detail=document.getElementById('student-question-detail');
+  detail.style.display='block';
+  const st=getStatus(q);const isClosed=st==='closed';const qReplies=replies[q.id]||[];
+  const timerHtml=q.closesAt?`<div class="timer-bar ${isClosed?'timer-closed':st==='soon'?'timer-soon':'timer-open'}"><i class="ti ti-clock"></i>${isClosed?`Cerrado el ${formatDate(q.closesAt)}`:`Cierra el ${formatDate(q.closesAt)} · Quedan <strong>${timeLeft(q.closesAt)}</strong>`}</div>`:'';
+  const authorVal=currentStudent?esc(firstNames(currentStudent.name)):'';
+  const authorField=`<input type="text" id="reply-author" value="${authorVal}" readonly style="background:var(--surface2);color:var(--text2);">`;
+  detail.innerHTML=`
+    <button class="back-btn" onclick="backToStudentForum()"><i class="ti ti-arrow-left"></i> Volver al foro</button>
+    ${timerHtml}
+    <div class="detail-header"><h2>${esc(q.title)}</h2>${q.body?`<p class="body-text">${esc(q.body)}</p>`:''}</div>
+    <hr class="divider">
+    <p style="font-size:13px;font-weight:600;color:var(--text2);margin-bottom:1rem;">${qReplies.length} respuesta${qReplies.length!==1?'s':''}</p>
+    <div id="replies-container">${renderRepliesHTML(qReplies,q.id,isClosed)}</div>
+    ${!isClosed?`<hr class="divider">
+      <h3 style="font-size:15px;font-weight:600;margin-bottom:1rem;"><i class="ti ti-edit" style="margin-right:6px;"></i>Tu aportación</h3>
+      <div class="form-group"><label>Tu nombre</label>${authorField}</div>
+      <div class="form-group"><label>Tu argumento</label><textarea id="reply-text" rows="4" placeholder="Comparte tu perspectiva como futura pedagoga..."></textarea></div>
+      <button class="btn btn-primary" onclick="submitStudentReply('${q.id}')"><i class="ti ti-send"></i> Publicar mi aportación</button>`
+    :`<div style="background:var(--red-bg);color:var(--red-text);padding:12px 16px;border-radius:var(--radius-sm);font-size:14px;font-weight:600;"><i class="ti ti-lock"></i> Este debate está cerrado.</div>`}`;
+};
+
+window.backToStudentForum=function(){
+  const list=document.getElementById('student-questions-list');
+  const detail=document.getElementById('student-question-detail');
+  if(list)list.style.display='block';
+  if(detail)detail.style.display='none';
+};
+
+window.submitStudentReply=async function(qid){
+  const author=document.getElementById('reply-author').value.trim()||'Anónima';
+  const text=document.getElementById('reply-text').value.trim();
+  if(!text){toast('Escribe tu argumento primero');return;}
+  if(!replies[qid])replies[qid]=[];
+  replies[qid].push({author,text,time:new Date().toLocaleString('es-MX',{dateStyle:'short',timeStyle:'short'}),replies:[]});
+  await saveAll();
+  const idx=questions.findIndex(q=>q.id===qid);
+  openStudentQuestion(idx);
+  const fn2=currentStudent?firstNames(currentStudent.name):'';
+  showCelebration('🎯','¡Respuesta enviada!',`¡Gracias por tu aportación, futura maestra ${fn2}! Tu voz enriquece este espacio de aprendizaje. 🌸`);
+};
+
+// ══════════════════════════════════════════════════════
+// INIT
+// ══════════════════════════════════════════════════════
+const saved=localStorage.getItem('foro-student');
+if(saved){
+  try{
+    const s=JSON.parse(saved);
+    const match=ROSTER.find(r=>r.mat===s.mat&&r.name===s.name);
+    if(match){
+      currentStudent=match;viewingParcial=config.activePeriod;
+      document.getElementById('role-bar-student').style.display='flex';
+      document.getElementById('student-bar-name').textContent=`${firstNames(match.name)} · ${match.mat}`;
+    }
+  }catch(e){}
+}
+// Mostrar login de alumnas inmediatamente al cargar
+renderStudentLogin();
+document.getElementById('students-section').classList.add('active');
+document.getElementById('teacher-section').classList.remove('active');
+document.getElementById('tab-students')?.classList.add('active');
+document.querySelectorAll('.tabs .tab').forEach((t,i)=>{if(i!==0)t.classList.remove('active');});
+
+loadAll().then(()=>{
+  startListener();
+  // Si hay sesión guardada, mostrar dashboard; si no, el login ya está visible
+  if(currentStudent){renderStudentDashboard();}
+  else{renderStudentLogin();}
+});
+setInterval(()=>{
+  // Solo actualizar si el alumno NO está dentro de una pregunta del foro
+  const insideQ=document.getElementById('student-question-detail')?.style.display!=='none';
+  if(!insideQ&&currentStudent&&document.getElementById('students-section').classList.contains('active')){
+    renderStudentDashboard();
+  }
+},30000);
+</script>
+</body>
+</html>
