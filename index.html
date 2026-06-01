@@ -555,8 +555,10 @@ const firebaseConfig={
 };
 import{initializeApp}from"https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import{getDatabase,ref,set,get,onValue}from"https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+import{getAuth,signInWithEmailAndPassword,signOut}from"https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 const fbApp=initializeApp(firebaseConfig);
 const db=getDatabase(fbApp);
+const auth=getAuth(fbApp);
 
 // ══════════════════════════════════════════════════════
 // CONSTANTES
@@ -1228,26 +1230,12 @@ window.checkPass=async function(){
   const btn=document.querySelector('#teacher-login-area .btn-primary');
   if(btn){btn.disabled=true;btn.innerHTML='<i class="ti ti-loader-2"></i> Verificando...';}
   try{
-    // Login directo con Firebase REST API
-    const res=await fetch(
-      `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${firebaseConfig.apiKey}`,
-      {
-        method:'POST',
-        headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({email,password,returnSecureToken:true})
-      }
-    );
-    const data=await res.json();
-    if(!res.ok||!data.idToken){
-      const msg=data.error?.message||'Usuario o contraseña incorrectos';
-      const friendly=msg==='EMAIL_NOT_FOUND'||msg==='INVALID_PASSWORD'||msg==='INVALID_LOGIN_CREDENTIALS'
-        ?'Usuario o contraseña incorrectos':msg;
-      toast(friendly);
-      if(btn){btn.disabled=false;btn.innerHTML='<i class="ti ti-login"></i> Entrar';}
-      return;
-    }
-    // Verificar que sea cuenta @master.blackai.com
-    if(!data.email.toLowerCase().endsWith(TEACHER_DOMAIN)){
+    // Login con Firebase Auth SDK — el token queda activo para todas las escrituras
+    const cred=await signInWithEmailAndPassword(auth,email,password);
+    const user=cred.user;
+    // Verificar dominio @master.blackai.com
+    if(!user.email.toLowerCase().endsWith(TEACHER_DOMAIN)){
+      await signOut(auth);
       toast('Solo cuentas @master.blackai.com pueden acceder');
       if(btn){btn.disabled=false;btn.innerHTML='<i class="ti ti-login"></i> Entrar';}
       return;
@@ -1258,23 +1246,27 @@ window.checkPass=async function(){
     } else {
       localStorage.removeItem('foro-teacher-session');
     }
-    window._teacherToken=data.idToken;
-    window._teacherEmail=data.email;
+    window._teacherEmail=user.email;
     isTeacher=true;
     document.getElementById('role-bar-teacher').style.display='flex';
     renderTeacherSection();
     toast('¡Bienvenido/a! 🌸');
   }catch(err){
     console.error('Auth error:',err);
-    toast('Error de conexión. Intenta de nuevo.');
+    const code=err.code||'';
+    const friendly=code.includes('wrong-password')||code.includes('user-not-found')||code.includes('invalid-credential')
+      ?'Usuario o contraseña incorrectos'
+      :code.includes('too-many-requests')
+      ?'Demasiados intentos. Espera unos minutos.'
+      :'Error de conexión. Intenta de nuevo.';
+    toast(friendly);
     if(btn){btn.disabled=false;btn.innerHTML='<i class="ti ti-login"></i> Entrar';}
   }
 };
-window.logoutTeacher=function(){
+window.logoutTeacher=async function(){
   isTeacher=false;
-  window._teacherToken=null;
   window._teacherEmail=null;
-  // No borramos localStorage si marcó "recordar"
+  try{await signOut(auth);}catch(e){}
   document.getElementById('role-bar-teacher').style.display='none';
   renderTeacherLogin();
   showTab('teacher');
