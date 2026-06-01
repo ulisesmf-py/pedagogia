@@ -662,7 +662,7 @@ async function loadAll(){
     sessions=d.sessions||{};
     if(d.config)config=d.config;
   }
-  updateTopbar();renderQuestions();
+  updateTopbar();
 }
 function startListener(){
   onValue(ref(db,'forum'),snap=>{
@@ -676,6 +676,10 @@ function startListener(){
     const insideStudentQuestion=document.getElementById('student-question-detail')?.style.display!=='none';
     if(!insideStudentQuestion&&currentStudent){
       renderStudentDashboard();
+    }
+    // Actualizar panel docente si está activo (sin perder el alumno seleccionado)
+    if(isTeacher&&document.getElementById('teacher-panel')?.style.display!=='none'){
+      renderTeacherPanel();
     }
   });
 }
@@ -819,6 +823,7 @@ window.showTab=function(name){
 function renderQuestions(){
   const list=document.getElementById('questions-list');
   const detail=document.getElementById('question-detail');
+  if(!list||!detail)return; // DOM no disponible (foro está dentro del dashboard)
   detail.style.display='none';list.style.display='block';
   const pqs=questions.filter(q=>q.period===config.activePeriod||!q.period);
   if(!pqs.length){list.innerHTML='<div class="empty-state"><i class="ti ti-message-off"></i><p>Aún no hay preguntas en este parcial.</p></div>';return;}
