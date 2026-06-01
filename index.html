@@ -561,9 +561,8 @@ const db=getDatabase(fbApp);
 // ══════════════════════════════════════════════════════
 // CONSTANTES
 // ══════════════════════════════════════════════════════
-const TEACHER_USER="cuicalli";
 const TEACHER_DOMAIN="@master.blackai.com";
-const TEACHER_PASS="cuicalli123";
+const AUTH_WORKER="https://milestones-auth.ulisesmf-inefable.workers.dev";
 const MAX_FALTAS=3;
 
 const ROSTER=[
@@ -1221,27 +1220,60 @@ window.autocompleteDomain=function(inp){
     if(suffix)suffix.style.opacity='1';
   }
 };
-window.checkPass=function(){
-  const userInput=document.getElementById('teacher-user').value.trim().replace(TEACHER_DOMAIN,'').replace('@','').toLowerCase();
-  const passInput=document.getElementById('teacher-pwd').value;
+window.checkPass=async function(){
+  const userRaw=document.getElementById('teacher-user').value.trim();
+  // Construir email completo
+  const email=userRaw.includes('@')?userRaw:userRaw+TEACHER_DOMAIN;
+  const password=document.getElementById('teacher-pwd').value;
   const remember=document.getElementById('teacher-remember')?.checked;
-  if(userInput===TEACHER_USER&&passInput===TEACHER_PASS){
-    // Recordar sesión SOLO si se marcó la opción
+  if(!email||!password){toast('Ingresa usuario y contraseña');return;}
+  // Mostrar estado de carga
+  const btn=document.querySelector('#teacher-login-area .btn-primary');
+  if(btn){btn.disabled=true;btn.innerHTML='<i class="ti ti-loader-2"></i> Verificando...';}
+  try{
+    // Autenticar via Worker (mismo sistema que el resto de tus apps)
+    const res=await fetch(`${AUTH_WORKER}/login`,{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({email,password})
+    });
+    const data=await res.json();
+    if(!res.ok||!data.token){
+      toast(data.error||'Usuario o contraseña incorrectos');
+      if(btn){btn.disabled=false;btn.innerHTML='<i class="ti ti-login"></i> Entrar';}
+      return;
+    }
+    // Verificar que sea cuenta @master.blackai.com
+    if(!email.toLowerCase().endsWith(TEACHER_DOMAIN)){
+      toast('Solo cuentas @master.blackai.com pueden acceder');
+      if(btn){btn.disabled=false;btn.innerHTML='<i class="ti ti-login"></i> Entrar';}
+      return;
+    }
+    // Guardar sesión SOLO si se marcó recordar
     if(remember){
-      localStorage.setItem('foro-teacher-session',JSON.stringify({user:userInput,pass:passInput}));
+      localStorage.setItem('foro-teacher-session',JSON.stringify({user:userRaw.replace(TEACHER_DOMAIN,'').replace('@',''),pass:password}));
     } else {
       localStorage.removeItem('foro-teacher-session');
     }
+    // Guardar token para operaciones Firebase autenticadas
+    window._teacherToken=data.token;
+    window._teacherEmail=email;
     isTeacher=true;
     document.getElementById('role-bar-teacher').style.display='flex';
-    renderTeacherSection();toast('¡Bienvenido/a! 🌸');
-  } else {
-    toast('Usuario o contraseña incorrectos');
+    document.getElementById('student-bar-name') && (document.getElementById('student-bar-name').textContent='');
+    renderTeacherSection();
+    toast('¡Bienvenido/a! 🌸');
+  }catch(err){
+    console.error('Auth error:',err);
+    toast('Error de conexión. Intenta de nuevo.');
+    if(btn){btn.disabled=false;btn.innerHTML='<i class="ti ti-login"></i> Entrar';}
   }
 };
 window.logoutTeacher=function(){
   isTeacher=false;
-  // No borramos localStorage aquí — si marcó "recordar" que siga guardado para el próximo login
+  window._teacherToken=null;
+  window._teacherEmail=null;
+  // No borramos localStorage si marcó "recordar"
   document.getElementById('role-bar-teacher').style.display='none';
   renderTeacherLogin();
   showTab('teacher');
@@ -1584,7 +1616,7 @@ function renderTeacherPanel(){
       </div>
       <div class="admin-panel fade-up">
         <p class="admin-panel-title"><i class="ti ti-lock"></i> Acceso del docente</p>
-        <p style="font-size:13px;color:var(--text2);">Para cambiar la contraseña, edita la variable <code style="background:var(--surface2);padding:2px 6px;border-radius:4px;">TEACHER_PASS</code> en el código HTML y vuelve a subirlo a Cloudflare.</p>
+        <p style="font-size:13px;color:var(--text2);">El acceso usa Firebase Authentication. Administra las cuentas de docentes desde <a href="https://console.firebase.google.com" target="_blank" style="color:var(--accent);">Firebase Console → Authentication</a>.</p>
       </div>
       <div class="admin-panel fade-up" style="border-color:var(--red);background:var(--red-bg);">
         <p class="admin-panel-title" style="color:var(--red-text);"><i class="ti ti-alert-triangle"></i> Zona de reinicio</p>
