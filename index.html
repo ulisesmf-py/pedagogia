@@ -562,7 +562,6 @@ const db=getDatabase(fbApp);
 // CONSTANTES
 // ══════════════════════════════════════════════════════
 const TEACHER_DOMAIN="@master.blackai.com";
-const AUTH_WORKER="https://milestones-auth.ulisesmf-inefable.workers.dev";
 const MAX_FALTAS=3;
 
 const ROSTER=[
@@ -1222,29 +1221,33 @@ window.autocompleteDomain=function(inp){
 };
 window.checkPass=async function(){
   const userRaw=document.getElementById('teacher-user').value.trim();
-  // Construir email completo
   const email=userRaw.includes('@')?userRaw:userRaw+TEACHER_DOMAIN;
   const password=document.getElementById('teacher-pwd').value;
   const remember=document.getElementById('teacher-remember')?.checked;
   if(!email||!password){toast('Ingresa usuario y contraseña');return;}
-  // Mostrar estado de carga
   const btn=document.querySelector('#teacher-login-area .btn-primary');
   if(btn){btn.disabled=true;btn.innerHTML='<i class="ti ti-loader-2"></i> Verificando...';}
   try{
-    // Autenticar via Worker (mismo sistema que el resto de tus apps)
-    const res=await fetch(`${AUTH_WORKER}/login`,{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({email,password})
-    });
+    // Login directo con Firebase REST API
+    const res=await fetch(
+      `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${firebaseConfig.apiKey}`,
+      {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({email,password,returnSecureToken:true})
+      }
+    );
     const data=await res.json();
-    if(!res.ok||!data.token){
-      toast(data.error||'Usuario o contraseña incorrectos');
+    if(!res.ok||!data.idToken){
+      const msg=data.error?.message||'Usuario o contraseña incorrectos';
+      const friendly=msg==='EMAIL_NOT_FOUND'||msg==='INVALID_PASSWORD'||msg==='INVALID_LOGIN_CREDENTIALS'
+        ?'Usuario o contraseña incorrectos':msg;
+      toast(friendly);
       if(btn){btn.disabled=false;btn.innerHTML='<i class="ti ti-login"></i> Entrar';}
       return;
     }
     // Verificar que sea cuenta @master.blackai.com
-    if(!email.toLowerCase().endsWith(TEACHER_DOMAIN)){
+    if(!data.email.toLowerCase().endsWith(TEACHER_DOMAIN)){
       toast('Solo cuentas @master.blackai.com pueden acceder');
       if(btn){btn.disabled=false;btn.innerHTML='<i class="ti ti-login"></i> Entrar';}
       return;
@@ -1255,12 +1258,10 @@ window.checkPass=async function(){
     } else {
       localStorage.removeItem('foro-teacher-session');
     }
-    // Guardar token para operaciones Firebase autenticadas
-    window._teacherToken=data.token;
-    window._teacherEmail=email;
+    window._teacherToken=data.idToken;
+    window._teacherEmail=data.email;
     isTeacher=true;
     document.getElementById('role-bar-teacher').style.display='flex';
-    document.getElementById('student-bar-name') && (document.getElementById('student-bar-name').textContent='');
     renderTeacherSection();
     toast('¡Bienvenido/a! 🌸');
   }catch(err){
