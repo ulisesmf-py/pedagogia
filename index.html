@@ -564,6 +564,7 @@ const auth=getAuth(fbApp);
 // CONSTANTES
 // ══════════════════════════════════════════════════════
 const TEACHER_DOMAIN="@master.blackai.com";
+const WEBQUEST_URL="https://webquest.pages.dev";
 const MAX_FALTAS=3;
 
 const ROSTER=[
@@ -1109,6 +1110,36 @@ function renderStudentDashboard(){
     <button class="tab ${currentStudentTab==='eva'?'active':''}" style="flex:1;" onclick="setStudentTab('eva')"><i class="ti ti-device-laptop"></i> EVA</button>
   </div>`;
 
+  // ── Sección WebQuest ──
+  let webquestSectionHTML='';
+  if(currentStudentTab==='webquest'){
+    webquestSectionHTML=`
+      <div class="card fade-up" style="text-align:center;padding:1.75rem;">
+        <div style="width:64px;height:64px;background:linear-gradient(135deg,#c2648a,#6aaad4);border-radius:18px;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;box-shadow:var(--shadow);">
+          <i class="ti ti-map-search" style="font-size:30px;color:#fff;"></i>
+        </div>
+        <h3 style="font-family:var(--font-serif);font-size:22px;color:var(--text);margin-bottom:6px;">WebQuest</h3>
+        <p style="font-size:13px;color:var(--text2);margin-bottom:1.5rem;line-height:1.65;">Crea y publica tus WebQuests por parcial. Investiga, organiza y presenta tu conocimiento de forma visual. 🗺️</p>
+        <button id="webquest-btn" onclick="openWebQuest()"
+          style="display:inline-flex;align-items:center;gap:8px;padding:12px 28px;
+            background:linear-gradient(135deg,#c2648a,#6aaad4);color:#fff;
+            border-radius:var(--radius-sm);font-weight:700;font-size:15px;
+            border:none;cursor:pointer;box-shadow:0 4px 14px rgba(194,100,138,0.3);
+            transition:all 0.2s;font-family:var(--font);"
+          onmouseover="this.style.opacity='0.88'"
+          onmouseout="this.style.opacity='1'">
+          <i class="ti ti-external-link" style="font-size:18px;"></i> Entrar a WebQuest
+        </button>
+        <p style="font-size:11px;color:var(--text3);margin-top:1.25rem;font-weight:600;">Se abre en una nueva pestaña · webquest.pages.dev</p>
+      </div>
+      <div class="card fade-up" style="background:linear-gradient(135deg,rgba(194,100,138,0.05),rgba(106,170,212,0.05));border-color:var(--border);">
+        <p style="font-size:13px;color:var(--text2);line-height:1.65;font-weight:500;">
+          <i class="ti ti-info-circle" style="color:var(--accent);vertical-align:-2px;margin-right:6px;"></i>
+          Tu sesión se transfiere automáticamente al entrar a WebQuest. Encontrarás tus actividades organizadas por parcial y tu docente podrá revisar y calificar tu trabajo directamente. ¡Mucho éxito, ${fn}! 💜
+        </p>
+      </div>`;
+  }
+
   // ── Sección EVA ──
   let evaSectionHTML='';
   if(currentStudentTab==='eva'){
@@ -1170,7 +1201,7 @@ function renderStudentDashboard(){
     <div class="motivational fade-up"><p>"${phrase}"</p><p class="mauthor">— Para ti, futura pedagoga ${fn} 🌸</p></div>
     ${attendMsgHtml}
     ${studentSubTabsHTML}
-    ${currentStudentTab==='home'?gradesSection:currentStudentTab==='eva'?evaSectionHTML:forumSectionHTML}
+    ${currentStudentTab==='home'?gradesSection:currentStudentTab==='eva'?evaSectionHTML:currentStudentTab==='webquest'?webquestSectionHTML:forumSectionHTML}
     <p style="font-size:12px;color:var(--text3);text-align:center;margin-top:0.5rem;">Todo se actualiza en tiempo real. 💜</p>`;
 }
 
@@ -1758,6 +1789,26 @@ window.resetRubrics=async function(){
   if(!config.rubrics)config.rubrics={};
   delete config.rubrics[editKey];
   await saveAll();renderTeacherPanel();toast('Rúbricas restauradas');
+};
+
+
+window.openWebQuest=async function(){
+  const btn=document.getElementById('webquest-btn');
+  if(btn){btn.disabled=true;btn.innerHTML='<i class="ti ti-loader-2"></i> Abriendo...';}
+  try{
+    const user=auth.currentUser;
+    if(user){
+      const idToken=await user.getIdToken(true);
+      window.open(`${WEBQUEST_URL}?token=${encodeURIComponent(idToken)}`,'_blank');
+    } else {
+      window.open(WEBQUEST_URL,'_blank');
+    }
+  }catch(err){
+    console.error('SSO error:',err);
+    window.open(WEBQUEST_URL,'_blank');
+  }finally{
+    if(btn){btn.disabled=false;btn.innerHTML='<i class="ti ti-external-link"></i> Entrar a WebQuest';}
+  }
 };
 
 // ══════════════════════════════════════════════════════
