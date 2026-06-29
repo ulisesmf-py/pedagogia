@@ -1104,10 +1104,11 @@ function renderStudentDashboard(){
   }
 
   // ── Sub-tabs del dashboard (Inicio / Foro / EVA) ──
-  const studentSubTabsHTML=`<div style="display:flex;gap:4px;margin-bottom:1.5rem;background:rgba(194,100,138,0.08);padding:4px;border-radius:22px;border:1px solid var(--border);">
-    <button class="tab ${currentStudentTab==='home'?'active':''}" style="flex:1;" onclick="setStudentTab('home')"><i class="ti ti-layout-dashboard"></i> Mi progreso</button>
-    <button class="tab ${currentStudentTab==='forum'?'active':''}" style="flex:1;" onclick="setStudentTab('forum')"><i class="ti ti-message-circle"></i> Foro</button>
-    <button class="tab ${currentStudentTab==='eva'?'active':''}" style="flex:1;" onclick="setStudentTab('eva')"><i class="ti ti-device-laptop"></i> EVA</button>
+  const studentSubTabsHTML=`<div style="display:flex;gap:4px;margin-bottom:1.5rem;background:rgba(194,100,138,0.08);padding:4px;border-radius:22px;border:1px solid var(--border);flex-wrap:wrap;">
+    <button class="tab ${currentStudentTab==='home'?'active':''}" style="flex:1;min-width:70px;" onclick="setStudentTab('home')"><i class="ti ti-layout-dashboard"></i> Progreso</button>
+    <button class="tab ${currentStudentTab==='forum'?'active':''}" style="flex:1;min-width:70px;" onclick="setStudentTab('forum')"><i class="ti ti-message-circle"></i> Foro</button>
+    <button class="tab ${currentStudentTab==='eva'?'active':''}" style="flex:1;min-width:70px;" onclick="setStudentTab('eva')"><i class="ti ti-device-laptop"></i> EVA</button>
+    <button class="tab ${currentStudentTab==='webquest'?'active':''}" style="flex:1;min-width:70px;" onclick="setStudentTab('webquest')"><i class="ti ti-map-search"></i> WebQuest</button>
   </div>`;
 
   // ── Sección WebQuest ──
