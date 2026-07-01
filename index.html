@@ -1798,15 +1798,27 @@ window.openWebQuest=async function(){
   if(btn){btn.disabled=true;btn.innerHTML='<i class="ti ti-loader-2"></i> Abriendo...';}
   try{
     const user=auth.currentUser;
-    if(user){
-      const idToken=await user.getIdToken(true);
-      window.open(`${WEBQUEST_URL}?token=${encodeURIComponent(idToken)}`,'_blank');
+    if(!user){window.open(WEBQUEST_URL,'_blank');return;}
+    // 1. Obtener ID token fresco
+    const idToken=await user.getIdToken(true);
+    // 2. Intercambiar por custom token via Worker
+    const res=await fetch('https://milestones-auth.ulisesmf-inefable.workers.dev/webquest-token',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({idToken})
+    });
+    const data=await res.json();
+    if(res.ok&&data.customToken){
+      // 3. Abrir WebQuest con custom token
+      window.open(`${WEBQUEST_URL}?token=${encodeURIComponent(data.customToken)}`,'_blank');
     } else {
-      window.open(WEBQUEST_URL,'_blank');
+      // Fallback: intentar con ID token directo
+      console.warn('Custom token falló, usando ID token:',data.error);
+      window.open(`${WEBQUEST_URL}?token=${encodeURIComponent(idToken)}`,'_blank');
     }
   }catch(err){
     console.error('SSO error:',err);
-    window.open(WEBQUEST_URL,'_blank');
+    toast('Error al abrir WebQuest. Intenta de nuevo.');
   }finally{
     if(btn){btn.disabled=false;btn.innerHTML='<i class="ti ti-external-link"></i> Entrar a WebQuest';}
   }
